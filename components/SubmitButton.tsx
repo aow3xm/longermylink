@@ -1,16 +1,20 @@
 'use client';
 
 import { Loader } from 'lucide-react';
-import { Button } from './ui/button';
+import { Button, ButtonProps } from './ui/button';
 import { useFormContext } from 'react-hook-form';
 import { cn } from '@/lib/utils';
 
-type SubmitButtonProps = React.ComponentProps<'button'> & {
-  children: React.ReactNode;
+type SubmitButtonProps = ButtonProps & {
   loader?: boolean;
 };
 
-export const SubmitButton: React.FC<SubmitButtonProps> = ({ children, loader = true, className, ...props }) => {
+export const SubmitButton: React.FC<SubmitButtonProps> = ({ 
+  children, 
+  loader = true, 
+  className, 
+  ...props 
+}) => {
   const {
     formState: { isSubmitting },
   } = useFormContext();
@@ -20,7 +24,7 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({ children, loader = t
       {...props}
       className={cn('relative transition-all duration-200 ease-in-out', className)}
       type='submit'
-      disabled={isSubmitting}
+      disabled={isSubmitting || props.disabled}
     >
       {loader ? (
         <div className='flex items-center justify-center w-full gap-2'>

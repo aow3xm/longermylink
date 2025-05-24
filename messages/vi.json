@@ -16,7 +16,25 @@
       "noAccount": "Chưa có tài khoản?",
       "signUp": "Đăng ký",
       "or": "hoặc",
-      "signInWithGithub": "Đăng nhập với Github"
+      "signInWithGithub": "Đăng nhập với github"
+    },
+    "Register": {
+      "title": "Đăng ký",
+      "description": "Tạo tài khoản mới",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Nhập email của bạn",
+      "fullNameLabel": "Họ và tên",
+      "fullNamePlaceholder": "Nhập họ và tên của bạn",
+      "passwordLabel": "Mật khẩu",
+      "passwordPlaceholder": "Nhập mật khẩu của bạn",
+      "confirmPasswordLabel": "Xác nhận mật khẩu",
+      "confirmPasswordPlaceholder": "Nhập lại mật khẩu của bạn",
+      "signUpButton": "Đăng ký",
+      "hasAccount": "Đã có tài khoản?",
+      "signIn": "Đăng nhập",
+      "or": "hoặc",
+      "signUpWithGithub": "Đăng ký với Github"
     }
+    
   }
 }

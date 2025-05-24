@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import LoginPage from '@/app/[locale]/(auth)/login/page';
+import RegisterPage from '@/app/[locale]/(auth)/register/page';
 import { authClient } from '@/lib/auth/client';
 import { fireEvent } from '@testing-library/dom';
 
@@ -64,8 +64,7 @@ jest.mock('@/config/page', () => ({
   __esModule: true,
   paths: {
     auth: {
-      forgotPassword: '/forgot-password',
-      register: '/register',
+      login: '/login',
     },
   },
 }));
@@ -74,8 +73,10 @@ jest.mock('@/lib/auth/client', () => ({
   __esModule: true,
   authClient: {
     signIn: {
-      email: jest.fn(),
       social: jest.fn(),
+    },
+    signUp: {
+      email: jest.fn(),
     },
   },
 }));
@@ -90,84 +91,101 @@ jest.mock('sonner', () => ({
   toast: mockToast,
 }));
 
-describe('LoginPage', () => {
+describe('RegisterPage', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('renders form inputs and buttons with correct attributes', () => {
-    render(<LoginPage />);
-    
+    render(<RegisterPage />);
+
     // Kiểm tra đầu vào email
     const emailInput = screen.getByLabelText('emailLabel');
     expect(emailInput).toBeInTheDocument();
     expect(emailInput).toHaveAttribute('type', 'email');
     expect(emailInput).toHaveAttribute('required');
     expect(emailInput).toHaveAttribute('autoComplete', 'email');
-      // Kiểm tra đầu vào mật khẩu
+
+    // Kiểm tra đầu vào tên đầy đủ
+    const nameInput = screen.getByLabelText('fullNameLabel');
+    expect(nameInput).toBeInTheDocument();
+    expect(nameInput).toHaveAttribute('required');
+    expect(nameInput).toHaveAttribute('autoComplete', 'family-name');
+
+    // Kiểm tra đầu vào mật khẩu
     const passwordInput = screen.getByLabelText('passwordLabel');
     expect(passwordInput).toBeInTheDocument();
     expect(passwordInput).toHaveAttribute('type', 'password');
     expect(passwordInput).toHaveAttribute('required');
-    expect(passwordInput).toHaveAttribute('autoComplete', 'current-password');
-    
-    // Kiểm tra nút đăng nhập
-    const signInButton = screen.getByRole('button', { name: 'signInButton' });
-    expect(signInButton).toBeInTheDocument();
-    expect(signInButton).toHaveAttribute('type', 'submit');
-    
-    // Kiểm tra nút đăng nhập bằng GitHub
-    const githubButton = screen.getByText('signInWithGithub');
+    expect(passwordInput).toHaveAttribute('autoComplete', 'new-password');
+
+    // Kiểm tra đầu vào xác nhận mật khẩu
+    const confirmPasswordInput = screen.getByLabelText('confirmPasswordLabel');
+    expect(confirmPasswordInput).toBeInTheDocument();
+    expect(confirmPasswordInput).toHaveAttribute('type', 'password');
+    expect(confirmPasswordInput).toHaveAttribute('required');
+    expect(confirmPasswordInput).toHaveAttribute('autoComplete', 'new-password');
+
+    // Kiểm tra nút đăng ký
+    const signUpButton = screen.getByRole('button', { name: 'signUpButton' });
+    expect(signUpButton).toBeInTheDocument();
+    expect(signUpButton).toHaveAttribute('type', 'submit');
+
+    // Kiểm tra nút đăng ký bằng GitHub
+    const githubButton = screen.getByText('signUpWithGithub');
     expect(githubButton).toBeInTheDocument();
     expect(githubButton).toHaveAttribute('type', 'button');
   });
-  
+
   it('renders navigation links correctly', () => {
-    render(<LoginPage />);
-    
-    // Kiểm tra liên kết quên mật khẩu
-    const forgotPasswordLink = screen.getByText('forgotPassword');
-    expect(forgotPasswordLink).toBeInTheDocument();
-    expect(forgotPasswordLink).toHaveAttribute('href', '/forgot-password');
-    
-    // Kiểm tra liên kết đăng ký
-    const signUpLink = screen.getByText('signUp');
-    expect(signUpLink).toBeInTheDocument();
-    expect(signUpLink).toHaveAttribute('href', '/register');
+    render(<RegisterPage />);
+
+    // Kiểm tra liên kết đăng nhập
+    const signInLink = screen.getByText('signIn');
+    expect(signInLink).toBeInTheDocument();
+    expect(signInLink).toHaveAttribute('href', '/login');
   });
 
-  it('submits form with correct data and handles successful login', async () => {
-    (authClient.signIn.email as jest.Mock).mockResolvedValue({ 
-      error: null, 
-      success: true 
+  it('submits form with correct data and handles successful registration', async () => {
+    (authClient.signUp.email as jest.Mock).mockResolvedValue({
+      error: null,
+      success: true
     });
-    
-    render(<LoginPage />);
+
+    render(<RegisterPage />);
     const user = userEvent.setup();
-    
+
     // Điền form
     const emailInput = screen.getByPlaceholderText('emailPlaceholder');
+    const nameInput = screen.getByPlaceholderText('fullNamePlaceholder');
     const passwordInput = screen.getByPlaceholderText('passwordPlaceholder');
-    
+    const confirmPasswordInput = screen.getByPlaceholderText('confirmPasswordPlaceholder');
+
     await user.type(emailInput, 'test@example.com');
+    await user.type(nameInput, 'John Doe');
     await user.type(passwordInput, 'password123');
-    
+    await user.type(confirmPasswordInput, 'password123');
+
     // Kiểm tra giá trị đã nhập
     expect(emailInput).toHaveValue('test@example.com');
+    expect(nameInput).toHaveValue('John Doe');
     expect(passwordInput).toHaveValue('password123');
-    
+    expect(confirmPasswordInput).toHaveValue('password123');
+
     // Submit form
-    const submitBtn = screen.getByRole('button', { name: 'signInButton' });
+    const submitBtn = screen.getByRole('button', { name: 'signUpButton' });
     await user.click(submitBtn);
 
     // Kiểm tra API được gọi với đúng dữ liệu
     await waitFor(() => {
-      expect(authClient.signIn.email).toHaveBeenCalledWith({
+      expect(authClient.signUp.email).toHaveBeenCalledWith({
         email: 'test@example.com',
+        name: 'John Doe',
         password: 'password123',
+        confirmPassword: 'password123',
       });
     });
-    
+
     // Kiểm tra toast error không được hiển thị
     expect(mockToast.error).not.toHaveBeenCalled();
   });
@@ -175,138 +193,157 @@ describe('LoginPage', () => {
   it('handles various error messages from API', async () => {
     // Mảng các loại lỗi để test
     const errors = [
-      { message: 'Invalid credentials' },
-      { message: 'Account locked' },
-      { message: 'Too many attempts' },
+      { message: 'Email already exists' },
+      { message: 'Password too weak' },
+      { message: 'Passwords do not match' },
       { message: 'Server error' }
     ];
-    
+
     // Test mỗi loại lỗi
     for (const error of errors) {
       jest.clearAllMocks();
-      (authClient.signIn.email as jest.Mock).mockResolvedValue({ error });
-      
-      render(<LoginPage />);
+      (authClient.signUp.email as jest.Mock).mockResolvedValue({ error });
+
+      render(<RegisterPage />);
       const user = userEvent.setup();
-      
+
       // Điền form
       const emailInput = screen.getByPlaceholderText('emailPlaceholder');
+      const nameInput = screen.getByPlaceholderText('fullNamePlaceholder');
       const passwordInput = screen.getByPlaceholderText('passwordPlaceholder');
-      
+      const confirmPasswordInput = screen.getByPlaceholderText('confirmPasswordPlaceholder');
+
       await user.type(emailInput, 'test@example.com');
-      await user.type(passwordInput, 'wrongpass');
-      
+      await user.type(nameInput, 'John Doe');
+      await user.type(passwordInput, 'password123');
+      await user.type(confirmPasswordInput, 'password123');
+
       // Submit form
-      const submitBtn = screen.getByRole('button', { name: 'signInButton' });
+      const submitBtn = screen.getByRole('button', { name: 'signUpButton' });
       await user.click(submitBtn);
 
       // Kiểm tra thông báo lỗi đúng
       await waitFor(() => {
         expect(mockToast.error).toHaveBeenCalledWith(error.message);
       });
-      
+
       // Dọn dẹp cho lần test tiếp theo
       document.body.innerHTML = '';
     }
   });
 
   it('tests social login functionality thoroughly', async () => {
-    // Test đăng nhập xã hội thành công
-    (authClient.signIn.social as jest.Mock).mockResolvedValue({ 
+    // Test đăng ký xã hội thành công
+    (authClient.signIn.social as jest.Mock).mockResolvedValue({
       error: null,
       success: true
     });
-    
-    render(<LoginPage />);
+
+    render(<RegisterPage />);
     const user = userEvent.setup();
-    
-    const githubBtn = screen.getByText('signInWithGithub');
+
+    const githubBtn = screen.getByText('signUpWithGithub');
     expect(githubBtn).toBeInTheDocument();
-    
+
     // Kiểm tra button có icon GitHub
     const githubIcon = within(githubBtn).getByText('GithubIcon');
     expect(githubIcon).toBeInTheDocument();
-    
-    // Click button đăng nhập GitHub
+
+    // Click button đăng ký GitHub
     await user.click(githubBtn);
 
     // Verify API được gọi với provider đúng
     await waitFor(() => {
       expect(authClient.signIn.social).toHaveBeenCalledWith({ provider: 'github' });
     });
-    
+
     // Kiểm tra toast lỗi không được hiển thị
     expect(mockToast.error).not.toHaveBeenCalled();
-    
+
     // Dọn dẹp cho test tiếp theo
     document.body.innerHTML = '';
     jest.clearAllMocks();
-    
-    // Test đăng nhập xã hội thất bại
-    const error = { message: 'Social login failed' };
+
+    // Test đăng ký xã hội thất bại
+    const error = { message: 'Social registration failed' };
     (authClient.signIn.social as jest.Mock).mockResolvedValue({ error });
-    
-    render(<LoginPage />);
-    const githubBtnError = screen.getByText('signInWithGithub');
+
+    render(<RegisterPage />);
+    const githubBtnError = screen.getByText('signUpWithGithub');
     await user.click(githubBtnError);
 
     await waitFor(() => {
-      expect(mockToast.error).toHaveBeenCalledWith('Social login failed');
+      expect(mockToast.error).toHaveBeenCalledWith('Social registration failed');
     });
   });
-  
+
   it('tests form submission with keyboard input', async () => {
-    (authClient.signIn.email as jest.Mock).mockResolvedValue({ error: null });
-    render(<LoginPage />);
-    
+    (authClient.signUp.email as jest.Mock).mockResolvedValue({ error: null });
+    render(<RegisterPage />);
+
     // Lấy các input
     const emailInput = screen.getByLabelText('emailLabel');
+    const nameInput = screen.getByLabelText('fullNameLabel');
     const passwordInput = screen.getByLabelText('passwordLabel');
-    const submitButton = screen.getByRole('button', { name: 'signInButton' });
-    
-    // Nhập email và mật khẩu
+    const confirmPasswordInput = screen.getByLabelText('confirmPasswordLabel');
+    const submitButton = screen.getByRole('button', { name: 'signUpButton' });
+
+    // Nhập email, tên, mật khẩu và xác nhận mật khẩu
     await userEvent.type(emailInput, 'test@example.com');
+    await userEvent.type(nameInput, 'John Doe');
     await userEvent.type(passwordInput, 'password123');
-    
+    await userEvent.type(confirmPasswordInput, 'password123');
+
     // Submit form bằng click
     await userEvent.click(submitButton);
-    
+
     // Xác minh form đã được submit
     await waitFor(() => {
-      expect(authClient.signIn.email).toHaveBeenCalledWith({
+      expect(authClient.signUp.email).toHaveBeenCalledWith({
         email: 'test@example.com',
+        name: 'John Doe',
         password: 'password123',
+        confirmPassword: 'password123',
       });
     });
   });
-  
+
   it('tests form fields appearance and properties', async () => {
-    render(<LoginPage />);
-    
+    render(<RegisterPage />);
+
     // Kiểm tra các thuộc tính của email input
     const emailInput = screen.getByLabelText('emailLabel');
     expect(emailInput).toHaveAttribute('type', 'email');
     expect(emailInput).toHaveAttribute('id', 'email');
     expect(emailInput).toHaveAttribute('required');
     expect(emailInput).toHaveAttribute('placeholder', 'emailPlaceholder');
-    
+
+    // Kiểm tra các thuộc tính của name input
+    const nameInput = screen.getByLabelText('fullNameLabel');
+    expect(nameInput).toHaveAttribute('id', 'name');
+    expect(nameInput).toHaveAttribute('required');
+    expect(nameInput).toHaveAttribute('placeholder', 'fullNamePlaceholder');
+
     // Kiểm tra các thuộc tính của password input
     const passwordInput = screen.getByLabelText('passwordLabel');
     expect(passwordInput).toHaveAttribute('type', 'password');
     expect(passwordInput).toHaveAttribute('id', 'password');
     expect(passwordInput).toHaveAttribute('required');
     expect(passwordInput).toHaveAttribute('placeholder', 'passwordPlaceholder');
-    
-    // Kiểm tra nút đăng nhập
-    const submitButton = screen.getByRole('button', { name: 'signInButton' });
+
+    // Kiểm tra các thuộc tính của confirmPassword input
+    const confirmPasswordInput = screen.getByLabelText('confirmPasswordLabel');
+    expect(confirmPasswordInput).toHaveAttribute('type', 'password');
+    expect(confirmPasswordInput).toHaveAttribute('id', 'confirmPassword');
+    expect(confirmPasswordInput).toHaveAttribute('required');
+    expect(confirmPasswordInput).toHaveAttribute('placeholder', 'confirmPasswordPlaceholder');
+
+    // Kiểm tra nút đăng ký
+    const submitButton = screen.getByRole('button', { name: 'signUpButton' });
     expect(submitButton).toHaveAttribute('type', 'submit');
-    
-    // Kiểm tra liên kết quên mật khẩu
-    const forgotPasswordLink = screen.getByText('forgotPassword');
-    expect(forgotPasswordLink).toHaveAttribute('href', '/forgot-password');
-    
-    // Kiểm tra liên kết đăng ký
-    const signUpLink = screen.getByText('signUp');
-    expect(signUpLink).toHaveAttribute('href', '/register');
+
+    // Kiểm tra liên kết đăng nhập
+    const signInLink = screen.getByText('signIn');
+    expect(signInLink).toHaveAttribute('href', '/login');
   });
 });
