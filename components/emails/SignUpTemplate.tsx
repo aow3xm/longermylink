@@ -23,7 +23,7 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({ name, verificati
         Sign up
       </Button>
 
-      <Text style={{ marginBottom: '0px' }}>In case you can&apos;t click the button, you can click the link bellow:</Text>
+      <Text style={{ marginBottom: '0px' }}>In case you can&apos;t click the button, you can click the link below:</Text>
       <Link href={verificationLink}>{verificationLink}</Link>
     </Section>
   </Html>
