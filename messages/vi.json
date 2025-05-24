@@ -1,0 +1,22 @@
+{
+  "HomePage": {
+    "title": "Hello world!",
+    "about": "Go to the about page"
+  },
+  "Auth": {
+    "Login": {
+      "title": "Đăng nhập",
+      "description": "Đăng nhập vào tài khoản của bạn",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Nhập email của bạn",
+      "passwordLabel": "Mật khẩu",
+      "passwordPlaceholder": "Nhập mật khẩu của bạn",
+      "signInButton": "Đăng nhập",
+      "forgotPassword": "Quên mật khẩu?",
+      "noAccount": "Chưa có tài khoản?",
+      "signUp": "Đăng ký",
+      "or": "hoặc",
+      "signInWithGithub": "Đăng nhập với Github"
+    }
+  }
+}
