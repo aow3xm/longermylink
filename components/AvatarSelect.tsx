@@ -41,7 +41,7 @@ export const AvatarSelect = () => {
   const method = useForm<UpdateAvatarData>({ resolver: valibotResolver(updateAvatarSchema), defaultValues: { link: 'default' } });
   const { handleSubmit, setValue } = method;
 
-  if (userAvatar === 'default' || userAvatar) return null;
+  if (userAvatar) return null;
 
   const handleSelectAvatar = (link: string) => {
     setValue('link', link);
