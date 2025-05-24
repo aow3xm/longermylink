@@ -1,4 +1,4 @@
-import { AlertCircle, AlertOctagon, AlertTriangle } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
 
 type ValidationErrorMsgProps = {
   msg: string;
