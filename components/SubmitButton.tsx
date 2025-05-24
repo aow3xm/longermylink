@@ -17,10 +17,10 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({ children, loader = t
 
   return (
     <Button
+      {...props}
       className={cn('relative transition-all duration-200 ease-in-out', className)}
       type='submit'
       disabled={isSubmitting}
-      {...props}
     >
       {loader ? (
         <div className='flex items-center justify-center w-full gap-2'>

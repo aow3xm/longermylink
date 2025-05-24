@@ -83,7 +83,7 @@ const LoginPage = () => {
                 type='password'
                 placeholder={t('passwordPlaceholder')}
                 required
-                autoComplete='password'
+                autoComplete='current-password'
               />
               {errors.password?.message && <ValidationErrorMsg msg={errors.password.message} />}
             </div>
