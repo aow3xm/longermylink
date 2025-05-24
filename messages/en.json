@@ -17,6 +17,23 @@
       "signUp": "Sign up",
       "or": "or",
       "signInWithGithub": "Sign in with Github"
+    },
+    "Register": {
+      "title": "Sign Up",
+      "description": "Create a new account",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your email",
+      "fullNameLabel": "Full Name",
+      "fullNamePlaceholder": "Enter your full name",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Re-enter your password",
+      "signUpButton": "Sign Up",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign In",
+      "or": "or",
+      "signUpWithGithub": "Sign Up with Github"
     }
   }
 }

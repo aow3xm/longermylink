@@ -10,16 +10,17 @@ import { Separator } from '@/components/ui/separator';
 import { ValidationErrorMsg } from '@/components/ValidationMessage';
 import { paths } from '@/config/page';
 import { authClient } from '@/lib/auth/client';
-import { LoginData, loginSchema } from '@/lib/schema/auth';
+import { RegisterData, registerSchema } from '@/lib/schema/auth';
 import { valibotResolver } from '@hookform/resolvers/valibot';
 import { GithubIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { FormProvider, useForm } from 'react-hook-form';
-const LoginPage = () => {
-  const t = useTranslations('Auth.Login')
-  const method = useForm<LoginData>({
-    resolver: valibotResolver(loginSchema),
+
+const RegisterPage = () => {
+  const t = useTranslations('Auth.Register');
+  const method = useForm<RegisterData>({
+    resolver: valibotResolver(registerSchema),
   });
   const {
     register,
@@ -39,7 +40,7 @@ const LoginPage = () => {
 
   const handleLogin = handleSubmit(async data => {
     const { toast } = await import('sonner');
-    const { error } = await authClient.signIn.email(data);
+    const { error } = await authClient.signUp.email(data);
     if (error) {
       toast.error(error.message);
     }
@@ -71,45 +72,66 @@ const LoginPage = () => {
             </div>
 
             <div className='space-y-2'>
-              <div className='flex justify-between'>
-                <Label htmlFor='password'>{t('passwordLabel')}</Label>
-                <Link href={paths.auth.forgotPassword} className='text-sm'>
-                 {t('forgotPassword')}
-                </Link>
-              </div>
+              <Label htmlFor='name'>{t('fullNameLabel')}</Label>
+              <Input
+                {...register('name')}
+                id='name'
+                placeholder={t('fullNamePlaceholder')}
+                required
+                autoComplete='family-name'
+              />
+              {errors.name?.message && <ValidationErrorMsg msg={errors.name.message} />}
+            </div>
 
+            <div className='space-y-2'>
+              <Label htmlFor='password'>{t('passwordLabel')}</Label>
               <PasswordInput
                 {...register('password')}
                 id='password'
                 placeholder={t('passwordPlaceholder')}
                 required
-                autoComplete='current-password'
+                autoComplete='new-password'
               />
               {errors.password?.message && <ValidationErrorMsg msg={errors.password.message} />}
             </div>
 
-            <div className='flex gap-1'>
-              <p className='text-sm'>{t('noAccount')}</p>
-              <Link className='text-sm' href={paths.auth.register}>{t('signUp')}</Link>
+            <div className='space-y-2'>
+              <Label htmlFor='confirmPassword'>{t('confirmPasswordLabel')}</Label>
+              <PasswordInput
+                {...register('confirmPassword')}
+                id='confirmPassword'
+                placeholder={t('confirmPasswordPlaceholder')}
+                required
+                autoComplete='new-password'
+              />
+              {errors.confirmPassword?.message && <ValidationErrorMsg msg={errors.confirmPassword.message} />}
             </div>
-            
-            <>
-              <SubmitButton className='w-full'>{t('signInButton')}</SubmitButton>
 
-              <div className="relative">
+            <div className='flex gap-1'>
+              <p className='text-sm'>{t('hasAccount')}</p>
+              <Link
+                className='text-sm'
+                href={paths.auth.login}
+              >
+                {t('signIn')}
+              </Link>
+            </div>
+
+            <>
+              <SubmitButton className='w-full'>{t('signUpButton')}</SubmitButton>
+
+              <div className='relative'>
                 <Separator />
-                <span className="absolute px-2 text-xs -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 text-muted-foreground bg-card">
-                  {t('or')}
-                </span>
+                <span className='absolute px-2 text-xs -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 text-muted-foreground bg-card'>{t('or')}</span>
               </div>
-              
+
               <Button
                 type='button'
                 className='w-full'
                 onClick={signInWithGithub}
               >
                 <GithubIcon />
-                {t('signInWithGithub')}
+                {t('signUpWithGithub')}
               </Button>
             </>
           </form>
@@ -119,4 +141,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
