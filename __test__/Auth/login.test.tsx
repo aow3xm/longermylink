@@ -1,9 +1,8 @@
-import React from 'react';
-import { render, screen, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import LoginPage from '@/app/[locale]/(auth)/login/page';
 import { authClient } from '@/lib/auth/client';
-import { fireEvent } from '@testing-library/dom';
+import { render, screen, waitFor, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 
 // Định nghĩa một mock router để sử dụng trong test
 const mockRouter = {
