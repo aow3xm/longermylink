@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { ValidationErrorMsg } from '@/components/ValidationMessage';
 import { paths } from '@/config/page';
+import { useRouter } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth/client';
 import { LoginData, loginSchema } from '@/lib/schema/auth';
 import { valibotResolver } from '@hookform/resolvers/valibot';
@@ -18,6 +19,7 @@ import Link from 'next/link';
 import { FormProvider, useForm } from 'react-hook-form';
 const LoginPage = () => {
   const t = useTranslations('Auth.Login')
+  const router = useRouter()
   const method = useForm<LoginData>({
     resolver: valibotResolver(loginSchema),
   });
@@ -34,7 +36,9 @@ const LoginPage = () => {
     });
     if (error) {
       toast.error(error.message);
+      return;
     }
+    router.push(paths.home)
   };
 
   const handleLogin = handleSubmit(async data => {
@@ -42,11 +46,13 @@ const LoginPage = () => {
     const { error } = await authClient.signIn.email(data);
     if (error) {
       toast.error(error.message);
+      return;
     }
+    router.push(paths.home)
   });
 
   return (
-    <Card className='max-w-sm'>
+    <Card className='w-xs sm:w-sm'>
       <CardHeader>
         <CardTitle>{t('title')}</CardTitle>
         <CardDescription>{t('description')}</CardDescription>

@@ -5,7 +5,7 @@ export const paths = {
   profile: '/profile',
   auth: {
     login: '/login',
-    register: '/regsiter',
+    register: '/register',
     forgotPassword: '/forgot-password',
     resetPassword: '/reset-password/:token',
   },

@@ -11,11 +11,11 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
 const avatars = [
-  { id: 1, src: '/avatars/adventurer-1748100144370.webp' },
-  { id: 2, src: '/avatars/adventurer-1748100100993.webp' },
-  { id: 3, src: '/avatars/adventurer-1748100075268.webp' },
-  { id: 4, src: '/avatars/adventurer-1748100059916.webp' },
-  { id: 5, src: '/avatars/adventurer-1748100030435.webp' },
+  { id: 1, src: '/avatars/funEmoji-1748177407752.webp' },
+  { id: 2, src: '/avatars/funEmoji-1748177400715.webp' },
+  { id: 3, src: '/avatars/funEmoji-1748177396212.webp' },
+  { id: 4, src: '/avatars/funEmoji-1748177393107.webp' },
+  { id: 5, src: '/avatars/funEmoji-1748177384745.webp' },
 ];
 
 const capitalizeName = (name?: string) => {
