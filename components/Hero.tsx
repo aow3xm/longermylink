@@ -1,35 +1,25 @@
 'use client';
 
+import { GenerateLinkData, generateLinkSchema } from '@/lib/schema/personal';
+import { generateRandomSubdomain } from '@/utils';
+import { valibotResolver } from '@hookform/resolvers/valibot';
 import { FormProvider, useForm } from 'react-hook-form';
 import { SubmitButton } from './SubmitButton';
 import { Input } from './ui/input';
+import { useState } from 'react';
 
 export const Hero: React.FC = () => {
-  const method = useForm();
-  const { handleSubmit } = method
-
-  const handleMakeLink = handleSubmit(async ()=>{
-    await new Promise((resolve)=> setTimeout(resolve, 2000))
-  })
   return (
     <div className='relative max-w-5xl h-[calc(100vh-3.5rem)] mx-auto border-x overflow-hidden antialiased flex flex-col items-center justify-center px-2'>
       <GridBackground />
 
       <div className='relative z-10 w-full p-4 pt-20 mx-auto max-w-7xl md:pt-0'>
         <h1 className='text-4xl font-bold text-center text-transparent bg-opacity-50 bg-gradient-to-b from-neutral-50 to-neutral-400 bg-clip-text md:text-7xl'>
-          Spotlight <br /> is the new trend.
+          Make your link <br /> longer in one click
         </h1>
-        <p className='max-w-lg mx-auto mt-4 text-base font-normal text-center text-neutral-300'>
-          Spotlight effect is a great way to draw attention to a specific part of the page. Here, we are drawing the attention towards the text section of the page. I don&apos;t know why but I&apos;m running out of copy.
-        </p>
       </div>
 
-      <FormProvider {...method}>
-        <form onSubmit={handleMakeLink} className='space-y-2 w-xs sm:w-sm'>
-          <Input placeholder='Paste your short link here' />
-          <SubmitButton className='w-full'>Make it long</SubmitButton>
-        </form>
-      </FormProvider>
+      <GenerateLinkForm/>
     </div>
   );
 };
@@ -63,3 +53,45 @@ const GridBackground: React.FC = () => (
     </svg>
   </div>
 );
+
+const GenerateLinkForm: React.FC = () => {
+  const method = useForm<GenerateLinkData>({resolver: valibotResolver(generateLinkSchema)});
+  const [result, setResult] = useState<string>()
+  const { register, setValue, handleSubmit } = method;
+
+  const handleGenerateLink = handleSubmit(async data => {
+    const { generateLink } = await import('@/actions/link');
+    const { toast } = await import('sonner')
+    
+    const response = await generateLink(data)
+    if(response?.serverError){
+      toast.error(response.serverError)
+      return;
+    }
+    if(response?.data){
+      setResult(response.data.from)
+    }
+  });
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const subDomain = generateRandomSubdomain();
+    setValue('from', subDomain);
+    
+    handleGenerateLink();
+  };
+
+  return (
+    <FormProvider {...method}>
+      <form
+        onSubmit={onSubmit}
+        className='z-50 space-y-2 w-xs sm:w-sm'
+      >
+        <Input {...register('to')} placeholder='Paste your link here' />
+        <input type="hidden" {...register('from')} />
+        {result && <Input defaultValue={`${result}.o0ong.me`}/>}
+        <SubmitButton className='w-full'>Make it long</SubmitButton>
+      </form>
+    </FormProvider>
+  );
+};

@@ -57,10 +57,9 @@ export const verification = pgTable("verification", {
 export const link = pgTable('link', {
     id: serial('id').primaryKey(),
     userId: text('user_id').references(() => user.id, { onDelete: 'cascade' }),
-    url: text('url').notNull(),
-    title: text('title').notNull(),
-    description: text('description'),
-    createdAt: timestamp('created_at').$defaultFn(() => new Date()),
+	from: text('from').notNull(),
+	to: text('to').notNull(),
+    createdAt: timestamp('created_at').defaultNow(),
 }, (table)=> [index('idx_link_user_id').on(table.userId)])
 
 export const userRelations = relations(user, ({many})=>({
@@ -70,6 +69,6 @@ export const userRelations = relations(user, ({many})=>({
 export const linkRelations = relations(link, ({one})=>({
     user: one(user, {
         fields: [link.userId],
-        references: [user.id]
+        references: [user.id],
     }),
 }))

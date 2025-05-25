@@ -20,11 +20,6 @@ export const actionClient = createSafeActionClient({
 }).use(async ({ next }) => {
   const session = await auth.api.getSession({ headers: await headers() });
 
-  if (!session) {
-    throw new APIError('UNAUTHORIZED', {
-      message: 'Unauthorized',
-    });
-  }
-
-  return next({ ctx: session });
+  return next({ ctx: session ?? undefined });
+  // return session ? next({ctx: session}) : next({ctx: undefined})
 });
