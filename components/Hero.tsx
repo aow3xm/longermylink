@@ -89,7 +89,7 @@ const GenerateLinkForm: React.FC = () => {
       >
         <Input {...register('to')} placeholder='Paste your link here' />
         <input type="hidden" {...register('from')} />
-        {result && <Input defaultValue={`${result}.o0ong.me`}/>}
+        {result && <Input defaultValue={`${result}.${process.env.NEXT_PUBLIC_BASE_URL!.split('https://')[1]}`}/>}
         <SubmitButton className='w-full'>Make it long</SubmitButton>
       </form>
     </FormProvider>

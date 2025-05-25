@@ -3,7 +3,7 @@ import { routing } from './i18n/routing';
 import { NextRequest, NextResponse } from 'next/server';
 
 const intlMiddleware = createIntlMiddleware(routing);
-const domain = 'o0ong.me';
+const domain = process.env.NEXT_PUBLIC_BASE_URL!.split('https://')[1];
 
 const middleware = async (req: NextRequest) => {
   const host = req.headers.get('host');
