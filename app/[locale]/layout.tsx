@@ -1,6 +1,6 @@
 import { ProviderWrapper } from '@/components/providers/ProviderWrapper';
 import { Toaster } from "@/components/ui/sonner"
-import { beVietNam, geist } from '@/config/page';
+import { geist } from '@/config/page';
 import { routing } from '@/i18n/routing';
 import type { Metadata } from 'next';
 import { hasLocale } from 'next-intl';
@@ -24,14 +24,12 @@ export default async function RootLayout({ children, params }: Readonly<RootLayo
     notFound();
   }
 
-  const font = locale === 'en' ? geist : beVietNam;
-
   return (
     <html
       lang={locale}
       suppressHydrationWarning
     >
-      <body className={font.className}>
+      <body className={geist.className}>
         <ProviderWrapper>
           <Header/>
           <main>
