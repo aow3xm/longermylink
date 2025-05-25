@@ -1,17 +1,26 @@
+import Image from 'next/image';
+import ShapeBackground from '@/public/assets/v882-kul-53.jpg'
 type AuthLayoutProps = {
   children: React.ReactNode;
 };
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => (
-  <section className='h-[calc(100vh-3.5rem)] grid place-items-center max-w-5xl mx-auto border-x'>
-    <div className='grid items-start w-full grid-cols-1 gap-8 sm:grid-cols-2'>
-      <div className='hidden col-span-1 mx-auto sm:block'>
-        <Dummy />
+  <div className='relative w-full h-[calc(100vh-3.5rem)] max-w-5xl mx-auto border-x'>
+    <Image
+      src={ShapeBackground}
+      fill
+      alt='shape background'
+      className='z-10 hidden object-cover opacity-50 dark:block'
+    />
+    
+    <section className='relative z-10 grid h-full px-2 place-items-center'>
+      <div className='grid items-start w-full grid-cols-1 gap-8 sm:grid-cols-2'>
+        <div className='hidden col-span-1 mx-auto sm:block'>
+          <Dummy />
+        </div>
+        <div className='col-span-1 mx-auto'>{children}</div>
       </div>
-      <div className='col-span-1 mx-auto'>
-        {children}
-      </div>
-    </div>
-  </section>
+    </section>
+  </div>
 );
 
 const Dummy = () => (
