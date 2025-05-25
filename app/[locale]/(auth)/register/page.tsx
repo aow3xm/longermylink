@@ -28,26 +28,28 @@ const RegisterPage = () => {
     formState: { errors },
   } = method;
 
-  const signInWithGithub = async () => {
+  const signUpWithGithub = async () => {
     const { toast } = await import('sonner');
     const { error } = await authClient.signIn.social({
       provider: 'github',
     });
     if (error) {
       toast.error(error.message);
+      return;
     }
   };
 
-  const handleLogin = handleSubmit(async data => {
+  const handleRegister = handleSubmit(async data => {
     const { toast } = await import('sonner');
     const { error } = await authClient.signUp.email(data);
     if (error) {
       toast.error(error.message);
+      return;
     }
   });
 
   return (
-    <Card className='max-w-sm w-sm'>
+    <Card className='w-xs sm:w-sm'>
       <CardHeader>
         <CardTitle>{t('title')}</CardTitle>
         <CardDescription>{t('description')}</CardDescription>
@@ -55,7 +57,7 @@ const RegisterPage = () => {
       <CardContent>
         <FormProvider {...method}>
           <form
-            onSubmit={handleLogin}
+            onSubmit={handleRegister}
             className='space-y-4'
           >
             <div className='space-y-2'>
@@ -128,7 +130,7 @@ const RegisterPage = () => {
               <Button
                 type='button'
                 className='w-full'
-                onClick={signInWithGithub}
+                onClick={signUpWithGithub}
               >
                 <GithubIcon />
                 {t('signUpWithGithub')}

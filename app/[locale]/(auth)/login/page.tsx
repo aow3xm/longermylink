@@ -36,6 +36,7 @@ const LoginPage = () => {
     });
     if (error) {
       toast.error(error.message);
+      return;
     }
     router.push(paths.home)
   };
@@ -45,12 +46,13 @@ const LoginPage = () => {
     const { error } = await authClient.signIn.email(data);
     if (error) {
       toast.error(error.message);
+      return;
     }
     router.push(paths.home)
   });
 
   return (
-    <Card className='max-w-sm w-sm'>
+    <Card className='w-xs sm:w-sm'>
       <CardHeader>
         <CardTitle>{t('title')}</CardTitle>
         <CardDescription>{t('description')}</CardDescription>
