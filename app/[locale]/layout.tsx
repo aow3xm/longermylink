@@ -6,6 +6,8 @@ import type { Metadata } from 'next';
 import { hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import '@/config/globals.css';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -31,10 +33,12 @@ export default async function RootLayout({ children, params }: Readonly<RootLayo
     >
       <body className={font.className}>
         <ProviderWrapper>
+          <Header/>
           <main>
             <Toaster position='top-right'/>
             {children}
           </main>
+          <Footer/>
         </ProviderWrapper>
       </body>
     </html>

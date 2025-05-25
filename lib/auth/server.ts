@@ -49,6 +49,7 @@ export const auth = betterAuth({
   hooks: {
     after: createAuthMiddleware(async ctx => {
       const locale = await getLocale();
+      console.log(" server.ts:52 - locale:", locale)
       const error = ctx.context.returned as APIError;
       if (locale === 'vi' && error && error.body && error.body.message && error.body.message in i18nMessage) {
         throw new APIError(error.status, {

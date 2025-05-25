@@ -3,6 +3,12 @@
     "title": "Hello world!",
     "about": "Go to the about page"
   },
+  "Header":{
+    "Popover":{
+      "profile": "Profile",
+      "logout": "Logout"
+    }
+  },
   "Auth": {
     "Login": {
       "title": "Sign in",

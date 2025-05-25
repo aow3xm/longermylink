@@ -3,6 +3,12 @@
     "title": "Hello world!",
     "about": "Go to the about page"
   },
+  "Header": {
+    "Popover": {
+      "profile": "Hồ sơ",
+      "logout": "Đăng xuất"
+    }
+  },
   "Auth": {
     "Login": {
       "title": "Đăng nhập",
@@ -35,6 +41,5 @@
       "or": "hoặc",
       "signUpWithGithub": "Đăng ký với Github"
     }
-    
   }
 }
