@@ -9,7 +9,7 @@ const middleware = async (req: NextRequest) => {
 };
 
 export const config = {
-  matcher: '/((?!api|l|trpc|_next|_vercel|.*\\..*).*)',
+  matcher: '/((?!api|l/|trpc|_next|_vercel|.*\\..*).*)',
 };
 
 export default middleware;

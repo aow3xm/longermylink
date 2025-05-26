@@ -10,7 +10,6 @@ export const GET = async (req: NextRequest) => {
   const p = await db.query.link.findFirst({
     where: eq(link.path, path),
   });
-  console.log(" route.ts:13 - p:", p)
 
   if (!p) return NextResponse.json(null, { status: 404 });
   return NextResponse.redirect(p.original, {
