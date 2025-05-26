@@ -9,13 +9,12 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { ValidationErrorMsg } from '@/components/ValidationMessage';
 import { paths } from '@/config/page';
-import { useRouter } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth/client';
 import { LoginData, loginSchema } from '@/lib/schema/auth';
 import { valibotResolver } from '@hookform/resolvers/valibot';
 import { GithubIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
 import { FormProvider, useForm } from 'react-hook-form';
 const LoginPage = () => {
   const t = useTranslations('Auth.Login')

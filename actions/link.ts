@@ -9,10 +9,10 @@ export const generateLink = actionClient
     .schema(generateLinkSchema)
     .action(async ({parsedInput, ctx})=>{
         const isSignedIn = 'user' in ctx
-        const [to] = await db.insert(link).values({
+        const [path] = await db.insert(link).values({
             ...parsedInput,
             userId: isSignedIn ? ctx.user.id : null,
         }).returning()
 
-        return to;
+        return path;
     })
