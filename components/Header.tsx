@@ -6,36 +6,37 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { User } from 'better-auth';
 import { Button } from './ui/button';
 import { Skeleton } from './ui/skeleton';
-import { ThemeSwitcher } from './ThemeSwitcher';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { LogOut } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/i18n/navigation';
+import dynamic from 'next/dynamic';
+const ThemeSwitcher = dynamic(() => import('@/components/ThemeSwitcher').then(m => m.ThemeSwitcher), { ssr: false, loading: () => <Skeleton className='rounded-none size-14' /> });
 
 export const Header: React.FC = () => {
   const { data, isPending } = authClient.useSession();
   const user = data?.user;
   return (
     <header className='sticky w-full border-b h-14 border-border'>
-      <div className='flex items-center justify-between max-w-5xl p-2 mx-auto border-x size-full'>
-        <div>
-          <h1 className='font-bold'>
+      <div className='flex items-center justify-between max-w-5xl mx-auto overflow-hidden border-x'>
+        <Button variant='ghost' asChild className='rounded-none flex items-center justify-center border-r w-[10.5rem] h-14'>
             <Link href={paths.home}>Longmylink</Link>
-          </h1>
-        </div>
+        </Button>
 
-        <nav className='flex gap-2'>
-          {isPending && <Skeleton className='rounded-full size-9' />}
+        <nav className='flex'>
+          {isPending && <Skeleton className='rounded-none size-14' />}
           {!isPending && user && <UserAvatar user={user} />}
           {!isPending && !user && (
             <Button
               asChild
-              size='sm'
+              variant='ghost'
+              className='border-l rounded-none h-14 w-28'
             >
               <Link href={paths.auth.login}>Login</Link>
             </Button>
           )}
-          <ThemeSwitcher />
+          <ThemeSwitcher className='border-l rounded-none size-14' />
+          <ThemeSwitcher className='border-l rounded-none size-14' />
         </nav>
       </div>
     </header>
@@ -55,19 +56,28 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
   return (
     <Popover>
       <PopoverTrigger>
-        <Avatar className='p-1 border-1'>
+       <div className='flex items-center justify-center border-l size-14'>
+         <Avatar className='rounded-full'>
           <AvatarImage src={user.image ?? ''} />
           <AvatarFallback>{user.name.charAt(0).toLocaleUpperCase()}</AvatarFallback>
         </Avatar>
+       </div>
       </PopoverTrigger>
 
-      <PopoverContent className='space-y-2 w-34'>
-        <Button asChild size='sm' className='w-full'>
+      <PopoverContent className='flex flex-col p-0 -mt-1 border-t-0 border-r-0 ml-28 w-42 bg-background rounded-xs'>
+        <Button
+          variant='ghost'
+          asChild
+          className='w-full border-b rounded-none h-14'
+        >
           <Link href={paths.profile}>{t('profile')}</Link>
         </Button>
 
-        <Button onClick={handleSignOut} className='w-full text-white' variant='destructive' size='sm'>
-          <LogOut/>
+        <Button
+          onClick={handleSignOut}
+          className='w-full text-white rounded-none h-14 bg-destructive hover:bg-destructive/80'
+        >
+          <LogOut />
           {t('logout')}
         </Button>
       </PopoverContent>

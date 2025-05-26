@@ -3,12 +3,14 @@
 import { useTheme } from 'next-themes';
 import { Button } from './ui/button';
 import { MoonIcon, SunIcon } from 'lucide-react';
-export const ThemeSwitcher = () => {
+
+type ThemeSwitcherProps = React.ComponentProps<'button'>
+export const ThemeSwitcher:React.FC<ThemeSwitcherProps> = ({className,...props}) => {
   const { theme, setTheme } = useTheme();
 
   return (
     <Button
-      className='size-9'
+      className={className}
       variant='ghost'
       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
     >

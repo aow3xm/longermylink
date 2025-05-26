@@ -33,15 +33,15 @@ const GridBackground: React.FC = () => (
       <defs>
         <pattern
           id='grid'
-          width='50'
-          height='50'
+          width='56'
+          height='56'
           patternUnits='userSpaceOnUse'
         >
           <path
-            d='M 50 0 L 0 0 0 50'
+            d='M 56 0 L 0 0 0 56'
             fill='none'
             stroke='#171717'
-            strokeWidth='1'
+            strokeWidth='2'
           />
         </pattern>
       </defs>
@@ -95,3 +95,4 @@ const GenerateLinkForm: React.FC = () => {
     </FormProvider>
   );
 };
+
