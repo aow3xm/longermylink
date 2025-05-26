@@ -24,32 +24,77 @@ export const Hero: React.FC = () => {
   );
 };
 
+// const GridBackground: React.FC = () => (
+//   <div className='absolute inset-0 hidden pointer-events-none select-none dark:block'>
+//     <svg
+//       className='w-full h-full'
+//       xmlns='http://www.w3.org/2000/svg'
+//     >
+//       <defs>
+//         <pattern
+//           id='grid'
+//           width='14'
+//           height='14'
+//           patternUnits='userSpaceOnUse'
+//         >
+//           <path
+//             d='M 14 0 L 0 0 0 14'
+//             fill='none'
+//             stroke='#171717'
+//             strokeWidth='3'
+//           />
+//         </pattern>
+//       </defs>
+//       <rect
+//         width='100%'
+//         height='100%'
+//         fill='url(#grid)'
+//       />
+//     </svg>
+//   </div>
+// );
+
+// const GridBackground: React.FC = () => (
+//   <div 
+//     className='absolute inset-0 hidden pointer-events-none select-none dark:block'
+//     style={{
+//       backgroundImage: `
+//         linear-gradient(#171717 1px, transparent 1px),
+//         linear-gradient(90deg, #171717 1px, transparent 1px)
+//       `,
+//       backgroundSize: `clamp(7px, 3vmin, 14px) clamp(7px, 3vmin, 14px)`,
+//       backgroundPosition: 'calc(0px - 1px) calc(0px - 1px)',
+//       backgroundAttachment: 'local'
+//     }}
+//   />
+// );
+
 const GridBackground: React.FC = () => (
   <div className='absolute inset-0 hidden pointer-events-none select-none dark:block'>
     <svg
       className='w-full h-full'
       xmlns='http://www.w3.org/2000/svg'
+      width="100%"
+      height="100%"
+      preserveAspectRatio="none"
     >
-      <defs>
-        <pattern
-          id='grid'
-          width='56'
-          height='56'
-          patternUnits='userSpaceOnUse'
-        >
-          <path
-            d='M 56 0 L 0 0 0 56'
-            fill='none'
-            stroke='#171717'
-            strokeWidth='2'
-          />
-        </pattern>
-      </defs>
-      <rect
-        width='100%'
-        height='100%'
-        fill='url(#grid)'
-      />
+      <pattern
+        id="grid"
+        width="14"
+        height="14"
+        patternUnits="userSpaceOnUse"
+        x="-1"
+        y="-1"
+      >
+        <path
+          d="M 14 0 L 0 0 0 14"
+          fill="none"
+          stroke="#171717"
+          strokeWidth="1"
+          vectorEffect="non-scaling-stroke"
+        />
+      </pattern>
+      <rect width="100%" height="100%" fill="url(#grid)" />
     </svg>
   </div>
 );
