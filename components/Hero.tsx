@@ -1,7 +1,7 @@
 'use client';
 
 import { GenerateLinkData, generateLinkSchema } from '@/lib/schema/personal';
-import { generateRandomSubdomain } from '@/utils';
+import { generateRandomPath } from '@/utils';
 import { valibotResolver } from '@hookform/resolvers/valibot';
 import { FormProvider, useForm } from 'react-hook-form';
 import { SubmitButton } from './SubmitButton';
@@ -14,7 +14,7 @@ export const Hero: React.FC = () => {
       <GridBackground />
 
       <div className='relative z-10 w-full p-4 pt-20 mx-auto max-w-7xl md:pt-0'>
-        <h1 className='text-4xl font-bold text-center text-transparent bg-opacity-50 bg-gradient-to-b from-neutral-50 to-neutral-400 bg-clip-text md:text-7xl'>
+        <h1 className='text-4xl font-bold text-center text-black dark:text-transparent dark:bg-opacity-50 dark:bg-gradient-to-b dark:from-neutral-50 dark:to-neutral-400 bg-clip-text md:text-7xl'>
           Make your link <br /> longer in one click
         </h1>
       </div>
@@ -69,14 +69,14 @@ const GenerateLinkForm: React.FC = () => {
       return;
     }
     if(response?.data){
-      setResult(response.data.from)
+      setResult(`${process.env.NEXT_PUBLIC_BASE_URL}/l/${response.data.path}`)
     }
   });
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const subDomain = generateRandomSubdomain();
-    setValue('from', subDomain);
+    const subDomain = generateRandomPath();
+    setValue('path', subDomain);
     
     handleGenerateLink();
   };
@@ -87,9 +87,9 @@ const GenerateLinkForm: React.FC = () => {
         onSubmit={onSubmit}
         className='z-50 space-y-2 w-xs sm:w-sm'
       >
-        <Input {...register('to')} placeholder='Paste your link here' />
-        <input type="hidden" {...register('from')} />
-        {result && <Input defaultValue={`${result}.${process.env.NEXT_PUBLIC_BASE_URL!.split('https://')[1]}`}/>}
+        <Input {...register('original')} placeholder='Paste your link here' />
+        <input type="hidden" {...register('path')} />
+        {result && <Input defaultValue={result}/>}
         <SubmitButton className='w-full'>Make it long</SubmitButton>
       </form>
     </FormProvider>

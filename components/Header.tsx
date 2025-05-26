@@ -2,7 +2,6 @@
 
 import { paths } from '@/config/page';
 import { authClient } from '@/lib/auth/client';
-import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { User } from 'better-auth';
 import { Button } from './ui/button';
@@ -11,7 +10,7 @@ import { ThemeSwitcher } from './ThemeSwitcher';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { LogOut } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRouter } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 
 export const Header: React.FC = () => {
   const { data, isPending } = authClient.useSession();

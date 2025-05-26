@@ -9,12 +9,12 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { ValidationErrorMsg } from '@/components/ValidationMessage';
 import { paths } from '@/config/page';
+import { Link } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth/client';
 import { RegisterData, registerSchema } from '@/lib/schema/auth';
 import { valibotResolver } from '@hookform/resolvers/valibot';
 import { GithubIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
 import { FormProvider, useForm } from 'react-hook-form';
 
 const RegisterPage = () => {

@@ -5,8 +5,8 @@ export const updateAvatarSchema = object({
 })
 
 export const generateLinkSchema = object({
-    from: pipe(string(), trim()),
-    to: pipe(string(), trim()),
+    original: pipe(string(), trim()),
+    path: pipe(string(), trim()),
 })
 export type GenerateLinkData = InferInput<typeof generateLinkSchema>
 

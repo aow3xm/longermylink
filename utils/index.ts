@@ -1,35 +1,34 @@
-const MAX_DOMAIN_LENGTH = 244;
+const MAX_PATH_LENGTH = 500;
 
-function chunkLabel(input: string, maxChunk: number = 63): string[] {
-  const parts = [];
-  for (let i = 0; i < input.length; i += maxChunk) {
-    parts.push(input.slice(i, i + maxChunk));
-  }
-  return parts;
-}
+export const generateRandomPath = (): string => {
+  const timestamp = Date.now();
+  const randomNum = Math.floor(Math.random() * 1000000);
 
-export const generateRandomSubdomain = () => {
-  const suffix = Math.random().toString(36).slice(2, 12); // 10 ký tự cho suffix
+  const uniqueSeed = timestamp + randomNum;
+  const uniquePattern = uniqueSeed
+    .toString()
+    .split('')
+    .map((digit, index) => {
+      const char = parseInt(digit) % 2 === 0 ? 'o' : 'O';
+      const repeat = index % 2 === 0 ? 1 : 2;
+      return char.repeat(repeat);
+    })
+    .join('');
 
   const patternBase = 'o';
   let pattern = 'l';
-  let patternChunks: string[] = [];
 
   while (true) {
     const testPattern = pattern + patternBase;
-    const testChunks = chunkLabel(testPattern + 'ng');
-    const labels = [...testChunks, suffix];
-    const totalLength = labels.map(l => l.length).reduce((a, b) => a + b, 0) + (labels.length - 1); // tính dấu chấm
+    const testPath = testPattern + uniquePattern + patternBase.repeat(50) + 'ng';
 
-    if (totalLength > MAX_DOMAIN_LENGTH) break;
+    if (testPath.length > MAX_PATH_LENGTH - 50) break;
 
     pattern = testPattern;
-    patternChunks = testChunks;
   }
 
-  pattern += 'ng';
-  patternChunks = chunkLabel(pattern);
+  const finalPath = pattern + uniquePattern + patternBase.repeat(25) + timestamp + patternBase.repeat(25) + 'ng';
 
-  const fullSubdomain = [...patternChunks, suffix].join('.');
-  return fullSubdomain.toLowerCase();
+  return finalPath;
 };
+

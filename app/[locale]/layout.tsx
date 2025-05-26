@@ -2,12 +2,12 @@ import { ProviderWrapper } from '@/components/providers/ProviderWrapper';
 import { Toaster } from "@/components/ui/sonner"
 import { geist } from '@/config/page';
 import { routing } from '@/i18n/routing';
-import type { Metadata } from 'next';
 import { hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
-import '@/config/globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import type { Metadata } from 'next';
+import '@/config/globals.css';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,10 +15,10 @@ export const metadata: Metadata = {
 };
 
 type RootLayoutProps = {
-  children: React.ReactNode,
   params: Promise<{ locale: string }>,
+  children: React.ReactNode,
 };
-export default async function RootLayout({ children, params }: Readonly<RootLayoutProps>) {
+const RootLayout: React.FC<RootLayoutProps> = async ({ params, children }) => {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) {
     notFound();
@@ -42,3 +42,5 @@ export default async function RootLayout({ children, params }: Readonly<RootLayo
     </html>
   );
 }
+
+export default RootLayout

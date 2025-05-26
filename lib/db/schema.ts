@@ -57,8 +57,8 @@ export const verification = pgTable("verification", {
 export const link = pgTable('link', {
     id: serial('id').primaryKey(),
     userId: text('user_id').references(() => user.id, { onDelete: 'cascade' }),
-	from: text('from').notNull(),
-	to: text('to').notNull(),
+	original: text('original').notNull(),
+	path: text('path').notNull(),
     createdAt: timestamp('created_at').defaultNow(),
 }, (table)=> [index('idx_link_user_id').on(table.userId)])
 
