@@ -24,51 +24,6 @@ export const Hero: React.FC = () => {
   );
 };
 
-// const GridBackground: React.FC = () => (
-//   <div className='absolute inset-0 hidden pointer-events-none select-none dark:block'>
-//     <svg
-//       className='w-full h-full'
-//       xmlns='http://www.w3.org/2000/svg'
-//     >
-//       <defs>
-//         <pattern
-//           id='grid'
-//           width='14'
-//           height='14'
-//           patternUnits='userSpaceOnUse'
-//         >
-//           <path
-//             d='M 14 0 L 0 0 0 14'
-//             fill='none'
-//             stroke='#171717'
-//             strokeWidth='3'
-//           />
-//         </pattern>
-//       </defs>
-//       <rect
-//         width='100%'
-//         height='100%'
-//         fill='url(#grid)'
-//       />
-//     </svg>
-//   </div>
-// );
-
-// const GridBackground: React.FC = () => (
-//   <div 
-//     className='absolute inset-0 hidden pointer-events-none select-none dark:block'
-//     style={{
-//       backgroundImage: `
-//         linear-gradient(#171717 1px, transparent 1px),
-//         linear-gradient(90deg, #171717 1px, transparent 1px)
-//       `,
-//       backgroundSize: `clamp(7px, 3vmin, 14px) clamp(7px, 3vmin, 14px)`,
-//       backgroundPosition: 'calc(0px - 1px) calc(0px - 1px)',
-//       backgroundAttachment: 'local'
-//     }}
-//   />
-// );
-
 const GridBackground: React.FC = () => (
   <div className='absolute inset-0 hidden pointer-events-none select-none dark:block'>
     <svg
@@ -132,7 +87,7 @@ const GenerateLinkForm: React.FC = () => {
         onSubmit={onSubmit}
         className='z-50 space-y-2 w-xs sm:w-sm'
       >
-        <Input {...register('original')} placeholder='Paste your link here' />
+        <Input {...register('original')} placeholder='Paste your link here' required/>
         <input type="hidden" {...register('path')} />
         {result && <Input defaultValue={result}/>}
         <SubmitButton className='w-full'>Make it long</SubmitButton>
