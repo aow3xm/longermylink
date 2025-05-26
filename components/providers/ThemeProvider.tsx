@@ -11,6 +11,7 @@ export function ThemeProvider({
       attribute='class'
       defaultTheme='dark'
       enableSystem
+      disableTransitionOnChange
     >
       {children}
     </NextThemesProvider>

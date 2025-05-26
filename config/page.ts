@@ -7,7 +7,7 @@ export const paths = {
     login: '/login',
     register: '/register',
     forgotPassword: '/forgot-password',
-    resetPassword: '/reset-password/:token',
+    resetPassword: '/reset-password',
   },
 };
 
