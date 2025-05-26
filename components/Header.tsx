@@ -11,15 +11,17 @@ import { LogOut } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/i18n/navigation';
 import dynamic from 'next/dynamic';
+import { LocaleSwitcher } from './LocaleSwitcher';
 const ThemeSwitcher = dynamic(() => import('@/components/ThemeSwitcher').then(m => m.ThemeSwitcher), { ssr: false, loading: () => <Skeleton className='rounded-none size-14' /> });
 
 export const Header: React.FC = () => {
   const { data, isPending } = authClient.useSession();
+  const t = useTranslations('Header')
   const user = data?.user;
   return (
     <header className='sticky w-full border-b h-14 border-border'>
       <div className='flex items-center justify-between max-w-5xl mx-auto overflow-hidden border-x'>
-        <Button variant='ghost' asChild className='rounded-none flex items-center justify-center border-r w-[10.5rem] h-14'>
+        <Button variant='ghost' asChild className='rounded-none flex items-center justify-center sm:border-r w-[10.5rem] h-14'>
             <Link href={paths.home}>Longmylink</Link>
         </Button>
 
@@ -30,13 +32,13 @@ export const Header: React.FC = () => {
             <Button
               asChild
               variant='ghost'
-              className='border-l rounded-none h-14 w-28'
+              className='rounded-none h-14 w-28 border-l'
             >
-              <Link href={paths.auth.login}>Login</Link>
+              <Link href={paths.auth.login}>{t('login')}</Link>
             </Button>
           )}
-          <ThemeSwitcher className='border-l rounded-none size-14' />
-          <ThemeSwitcher className='border-l rounded-none size-14' />
+          <LocaleSwitcher  className='border-l rounded-none size-14 border-x border-border'/>
+          <ThemeSwitcher className='rounded-none size-14' />
         </nav>
       </div>
     </header>

@@ -6,6 +6,7 @@ import { createAuthMiddleware, APIError } from 'better-auth/api';
 import { getLocale } from 'next-intl/server';
 import { resend } from '..';
 import { SignUpTemplate } from '@/components/emails/SignUpTemplate';
+import { nextCookies } from 'better-auth/next-js';
 
 const i18nMessage: Record<string, string> = {
   'Invalid email or password': 'Thông tin đăng nhập không hợp lệ',
@@ -59,4 +60,6 @@ export const auth = betterAuth({
       }
     }),
   },
+
+  plugins: [nextCookies()]
 });

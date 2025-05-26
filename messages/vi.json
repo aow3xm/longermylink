@@ -7,7 +7,8 @@
     "Popover": {
       "profile": "Hồ sơ",
       "logout": "Đăng xuất"
-    }
+    },
+    "login": "Đăng nhập"
   },
   "Auth": {
     "Login": {
