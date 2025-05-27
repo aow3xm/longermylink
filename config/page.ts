@@ -23,16 +23,3 @@ export const geist = localFont({
     },
   ],
 });
-
-export const beVietNam = localFont({
-  src: [
-    {
-      path: './fonts/BeVietnamPro-Bold.ttf',
-      weight: '700',
-    },
-    {
-      path: './fonts/BeVietnamPro-Regular.ttf',
-      weight: '400',
-    },
-  ],
-});
