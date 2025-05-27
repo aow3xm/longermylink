@@ -3,6 +3,10 @@
     "title": "Hello world!",
     "about": "Go to the about page"
   },
+  "NotFound": {
+    "title": "Nơi này không tồn tại",
+    "back": "Quay lại trang chủ"
+  },
   "Header": {
     "Popover": {
       "profile": "Hồ sơ",
@@ -41,6 +45,27 @@
       "signIn": "Đăng nhập",
       "or": "hoặc",
       "signUpWithGithub": "Đăng ký với Github"
+    },
+    "ForgotPassword": {
+      "title": "Quên mật khẩu",
+      "description": "Nhập email để tiến hành đặt lại mật khẩu",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Nhập email của bạn",
+      "resetPasswordButton": "Đặt lại mật khẩu",
+      "rememberPassword": "Bạn đã nhớ mật khẩu?",
+      "login": "Đăng nhập",
+      "toast": "Chúng tôi vừa gửi một link đặt lại mật khẩu đến email của bạn, vui lòng kiểm tra email/thư mục spam"
+    },
+    "ResetPassword": {
+      "invalidToken": "Token đặt lại mật khẩu không hợp lệ",
+      "title": "Đặt lại mật khẩu",
+      "description": "Đặt lại mật khẩu mới cho tài khoản",
+      "newPasswordLabel": "Mật khẩu",
+      "newPasswordPlaceholder": "Nhập mật khẩu mới",
+      "confirmPasswordLabel": "Xác nhận mật khẩu",
+      "confirmPasswordPlaceholder": "Nhập lại mật khẩu mới",
+      "resetPasswordButton": "Đặt lại mật khẩu",
+      "toast": "Đặt lại mật khẩu thành công"
     }
   }
 }
