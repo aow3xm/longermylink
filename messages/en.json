@@ -3,6 +3,10 @@
     "title": "Hello world!",
     "about": "Go to the about page"
   },
+  "NotFound":{
+    "title": "You should not be here",
+    "back": "Back to home"
+  },
   "Header":{
     "Popover":{
       "profile": "Profile",
@@ -41,6 +45,27 @@
       "signIn": "Sign In",
       "or": "or",
       "signUpWithGithub": "Sign Up with Github"
+    },
+    "ForgotPassword":{
+      "title": "Forgot Password",
+      "description": "Enter your email address to reset your password",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your email",
+      "resetPasswordButton": "Reset Password",
+      "rememberPassword": "Remember your password?",
+      "login": "Login",
+      "toast": "We just sent a password reset link to your email, please check your inbox/junk email"
+    },
+    "ResetPassword":{
+      "invalidToken": "Invalid reset password token",
+      "title": "Reset Password",
+      "description": "Enter a new password for your account",
+      "newPasswordLabel": "Password",
+      "newPasswordPlaceholder": "Enter your new password",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Re-enter your new password",
+      "resetPasswordButton": "Reset Password",
+      "toast": "Password reset successful"
     }
   }
 }
