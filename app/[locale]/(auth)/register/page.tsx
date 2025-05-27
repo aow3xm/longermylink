@@ -10,7 +10,6 @@ import { Separator } from '@/components/ui/separator';
 import { ValidationErrorMsg } from '@/components/ValidationMessage';
 import { paths } from '@/config/page';
 import { Link } from '@/i18n/navigation';
-import { authClient } from '@/lib/auth/client';
 import { RegisterData, registerSchema } from '@/lib/schema/auth';
 import { valibotResolver } from '@hookform/resolvers/valibot';
 import { GithubIcon } from 'lucide-react';
@@ -30,6 +29,7 @@ const RegisterPage = () => {
 
   const signUpWithGithub = async () => {
     const { toast } = await import('sonner');
+    const { authClient } = await import('@/lib/auth/client')
     const { error } = await authClient.signIn.social({
       provider: 'github',
     });
@@ -41,6 +41,7 @@ const RegisterPage = () => {
 
   const handleRegister = handleSubmit(async data => {
     const { toast } = await import('sonner');
+    const { authClient } = await import('@/lib/auth/client')
     const { error } = await authClient.signUp.email(data);
     if (error) {
       toast.error(error.message);
