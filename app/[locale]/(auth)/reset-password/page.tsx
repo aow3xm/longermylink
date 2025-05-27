@@ -82,7 +82,7 @@ const ResetPasswordPage: React.FC = () => {
 const InvalidToken: React.FC = () => {
   const t = useTranslations('Auth.ResetPassword');
   return (
-    <div className='border w-sx sm:w-sm rounded-lg p-5'>
+    <div className='border w-xs sm:w-sm rounded-lg p-5'>
       <p className='text-destructive'>{t('invalidToken')}</p>
     </div>
   );
