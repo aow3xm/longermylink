@@ -68,3 +68,18 @@ Object.defineProperty(window, 'IntersectionObserver', {
   value: MockIntersectionObserver,
   writable: true,
 });
+
+// Add requestSubmit polyfill since jsdom doesn't support it
+if (!HTMLFormElement.prototype.requestSubmit) {
+  HTMLFormElement.prototype.requestSubmit = function(submitter) {
+    if (submitter) {
+      submitter.click();
+    } else {
+      const submitButton = document.createElement('button');
+      submitButton.type = 'submit';
+      this.appendChild(submitButton);
+      submitButton.click();
+      this.removeChild(submitButton);
+    }
+  };
+}
