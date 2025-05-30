@@ -19,14 +19,18 @@ const config = {
   // Ánh xạ các đường dẫn module
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
+    '^next/navigation$': '<rootDir>/__mocks__/next/navigation.js',
+    '^next-intl/navigation$': '<rootDir>/__mocks__/next-intl/navigation.js',
+    '^next-intl/routing$': '<rootDir>/__mocks__/next-intl/routing.js',
+    '^next-intl$': '<rootDir>/__mocks__/next-intl.ts',
   },
   
   // Sử dụng jsdom cho môi trường test
   testEnvironment: "jsdom",
   
-  // Bỏ qua các node_modules ngoại trừ next-router-mock
+  // Bỏ qua các node_modules ngoại trừ các package cần transform
   transformIgnorePatterns: [
-    "/node_modules/(?!next-router-mock)/"
+    "/node_modules/(?!(.pnpm/|next-router-mock))/"
   ],
   
   // Thiết lập file cài đặt cho Jest sau khi môi trường đã được thiết lập

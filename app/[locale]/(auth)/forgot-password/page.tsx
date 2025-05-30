@@ -11,7 +11,7 @@ import { ForgotPasswordData, forgotPasswordSchema } from '@/lib/schema/auth';
 import { valibotResolver } from '@hookform/resolvers/valibot';
 import { useTranslations } from 'next-intl';
 import { FormProvider, useForm } from 'react-hook-form';
-const LoginPage = () => {
+const ForgotPasswordPage = () => {
   const t = useTranslations('Auth.ForgotPassword')
   const method = useForm<ForgotPasswordData>({
     resolver: valibotResolver(forgotPasswordSchema),
@@ -70,4 +70,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ForgotPasswordPage;

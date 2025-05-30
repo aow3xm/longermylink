@@ -1,8 +1,19 @@
-import RegisterPage from '@/app/[locale]/(auth)/register/page';
-import { authClient } from '@/lib/auth/client';
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { render, screen, waitFor, within, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+
+// Mock auth client
+const authClient = {
+  signIn: {
+    social: jest.fn(),
+  },
+  signUp: {
+    email: jest.fn(),
+  },
+};
+
+// Create a separate mock for the module export to ensure we can control it
+const mockAuthClient = authClient;
 
 // Định nghĩa một mock router để sử dụng trong test
 const mockRouter = {
@@ -18,7 +29,12 @@ const mockToast = {
   success: jest.fn(),
 };
 
-// Mock các dependency của Next.js
+// Yêu cầu mock các module trước khi import RegisterPage
+jest.mock('@/lib/auth/client', () => ({
+  __esModule: true,
+  authClient: mockAuthClient,
+}));
+
 jest.mock('next/navigation', () => ({
   useRouter: () => mockRouter,
   useSearchParams: () => ({
@@ -34,6 +50,14 @@ jest.mock('next/link', () => {
     )
   }
 });
+
+jest.mock('@/i18n/navigation', () => ({
+  __esModule: true,
+  Link: ({ children, href }: { children: React.ReactNode; href: string }) => (
+    <a href={href}>{children}</a>
+  ),
+  useRouter: () => mockRouter,
+}));
 
 jest.mock('@/components/SubmitButton', () => ({
   __esModule: true,
@@ -68,18 +92,6 @@ jest.mock('@/config/page', () => ({
   },
 }));
 
-jest.mock('@/lib/auth/client', () => ({
-  __esModule: true,
-  authClient: {
-    signIn: {
-      social: jest.fn(),
-    },
-    signUp: {
-      email: jest.fn(),
-    },
-  },
-}));
-
 jest.mock('@hookform/resolvers/valibot', () => ({
   __esModule: true,
   valibotResolver: () => (data: any) => ({ values: data, errors: {} }),
@@ -89,6 +101,9 @@ jest.mock('sonner', () => ({
   __esModule: true,
   toast: mockToast,
 }));
+
+// Import RegisterPage sau khi đã mock các dependency
+const RegisterPage = require('@/app/[locale]/(auth)/register/page').default;
 
 describe('RegisterPage', () => {
   beforeEach(() => {

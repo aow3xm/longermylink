@@ -1,3 +1,5 @@
+'use client'
+
 import { paths } from '@/config/page';
 import Image from 'next/image';
 import Cat from '@/public/assets/not-found.webp';
