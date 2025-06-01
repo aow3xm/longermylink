@@ -38,7 +38,7 @@ export const ShowResult: React.FC<ShowResultProps> = ({ result }) => {
         <DialogFooter>
           {!user && (
             <Button asChild>
-              <Link className='group' href={`${paths.auth.register}`}>
+              <Link className='group' href={paths.auth.register}>
                 Sign up to save your link <ChevronRight className='duration-100 group-hover:translate-x-0.5'/>
               </Link>
             </Button>
