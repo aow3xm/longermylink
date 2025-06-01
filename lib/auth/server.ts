@@ -7,7 +7,7 @@ import { getLocale } from 'next-intl/server';
 import { resend } from '..';
 import { SignUpTemplate } from '@/components/emails/SignUpTemplate';
 import { nextCookies } from 'better-auth/next-js';
-import {ForgotPasswordTemplate} from '@/components/emails/ForgotPasswordTemplate'
+import { ForgotPasswordTemplate } from '@/components/emails/ForgotPasswordTemplate';
 const i18nMessage: Record<string, string> = {
   'Invalid email or password': 'Thông tin đăng nhập không hợp lệ',
   'User already exists': 'Tài khoản đã tồn tại',
@@ -24,18 +24,18 @@ export const auth = betterAuth({
     autoSignIn: true,
     minPasswordLength: 8,
     requireEmailVerification: true,
-    sendResetPassword: async({user, url})=>{
+    sendResetPassword: async ({ user, url }) => {
       const { error } = await resend.emails.send({
         from: 'Longermylink <noreply@rs.o0ong.me>',
         to: user.email,
         subject: 'Reset your password',
-        react: await ForgotPasswordTemplate({name: user.name, resetLink: url}),
-      })
+        react: await ForgotPasswordTemplate({ name: user.name, resetLink: url }),
+      });
 
-      if(error){
-        throw new Error(error.message)
+      if (error) {
+        throw new Error(error.message);
       }
-    }
+    },
   },
 
   emailVerification: {
@@ -73,5 +73,5 @@ export const auth = betterAuth({
     }),
   },
 
-  plugins: [nextCookies()]
+  plugins: [nextCookies()],
 });

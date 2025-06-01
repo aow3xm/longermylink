@@ -59,7 +59,7 @@ export const link = pgTable('link', {
     userId: text('user_id').references(() => user.id, { onDelete: 'cascade' }),
 	original: text('original').notNull(),
 	path: text('path').notNull(),
-    createdAt: timestamp('created_at').defaultNow(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
 }, (table)=> [index('idx_link_user_id').on(table.userId)])
 
 export const userRelations = relations(user, ({many})=>({

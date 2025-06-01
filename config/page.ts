@@ -9,6 +9,10 @@ export const paths = {
     forgotPassword: '/forgot-password',
     resetPassword: '/reset-password',
   },
+  l: '/l', //redirect route
+  api: {
+    path: '/api/path',
+  }
 };
 
 export const geist = localFont({

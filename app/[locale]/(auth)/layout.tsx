@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import ShapeBackground from '@/public/assets/v882-kul-53.jpg'
+import ShapeBackground from '@/public/assets/v882-kul-53.webp'
 type AuthLayoutProps = {
   children: React.ReactNode;
 };

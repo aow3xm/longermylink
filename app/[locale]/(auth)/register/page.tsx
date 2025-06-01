@@ -50,7 +50,7 @@ const RegisterPage = () => {
   });
 
   return (
-    <Card className='w-xs sm:w-sm'>
+    <Card className='w-xs lg:w-sm'>
       <CardHeader>
         <CardTitle>{t('title')}</CardTitle>
         <CardDescription>{t('description')}</CardDescription>

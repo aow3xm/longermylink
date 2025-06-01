@@ -10,7 +10,7 @@ const mockRouter = {
   forward: jest.fn(),
 };
 
-const Link = ({ children, href, ...props }) => (
+const Link = ({ children, href, ...props }: { children: React.ReactNode; href: string; [key: string]: any }) => (
   <a href={href} {...props}>
     {children}
   </a>

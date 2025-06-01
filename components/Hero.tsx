@@ -1,12 +1,12 @@
 'use client';
 
 import { GenerateLinkData, generateLinkSchema } from '@/lib/schema/personal';
-import { generateRandomPath } from '@/utils';
 import { valibotResolver } from '@hookform/resolvers/valibot';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { ShowResult } from './ShowResult';
 import { SubmitButton } from './SubmitButton';
 import { Input } from './ui/input';
-import { useState } from 'react';
 import { ValidationErrorMsg } from './ValidationMessage';
 
 export const Hero: React.FC = () => {
@@ -61,19 +61,25 @@ const GridBackground: React.FC = () => (
 );
 
 //========================================================/
-const PREFIX = 'https://';
+const PREFIX = ['https://', 'http://'];
 const GenerateLinkForm: React.FC = () => {
   const method = useForm<GenerateLinkData>({ resolver: valibotResolver(generateLinkSchema) });
-  const [result, setResult] = useState<string>();
+  const [result, setResult] = useState<string | null>();
   const {
     register,
-    setValue,
+    reset,
     handleSubmit,
-    control,
     formState: { errors },
   } = method;
 
   const handleGenerateLink = handleSubmit(async data => {
+    setResult(null);
+
+    const isStartWithPrefix = PREFIX.some(prefix => data.original.startsWith(prefix));
+    if (!isStartWithPrefix) {
+      data.original = `${PREFIX[0]}${data.original}`;
+    }
+
     const { generateLink } = await import('@/actions/link');
     const { toast } = await import('sonner');
 
@@ -84,46 +90,24 @@ const GenerateLinkForm: React.FC = () => {
     }
     if (response?.data) {
       setResult(`${process.env.NEXT_PUBLIC_BASE_URL}/l/${response.data.path}`);
+      reset();
     }
   });
-
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const subDomain = generateRandomPath();
-    setValue('path', subDomain);
-
-    handleGenerateLink();
-  };
 
   return (
     <FormProvider {...method}>
       <form
-        onSubmit={onSubmit}
+        onSubmit={handleGenerateLink}
         className='z-50 space-y-2 w-xs sm:w-sm'
       >
-        <Controller
-          control={control}
-          defaultValue={PREFIX}
-          name='original'
-          render={({ field: {value, onChange, ...field } }) => (
-            <Input
-              {...field}
-              placeholder='Paste your link here'
-              required
-              value={value.startsWith(PREFIX) ? value.replace(PREFIX, '') : `${PREFIX}${value}`}
-              onChange={e => {
-                const value = e.target.value;
-                return onChange(value.startsWith(PREFIX) ? value : `${PREFIX}${value}`)
-              }}
-            />
-          )}
+        <Input
+          {...register('original')}
+          placeholder='Paste your link here'
+          required
         />
         {errors.original?.message && <ValidationErrorMsg msg={errors.original.message} />}
-        <input
-          type='hidden'
-          {...register('path')}
-        />
-        {result && <Input defaultValue={result} />}
+
+        {result && <ShowResult result={result} />}
         <SubmitButton className='w-full'>Make it long</SubmitButton>
       </form>
     </FormProvider>

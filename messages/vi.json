@@ -67,5 +67,16 @@
       "resetPasswordButton": "Đặt lại mật khẩu",
       "toast": "Đặt lại mật khẩu thành công"
     }
+  },
+  "Profile":{
+    "LinkTable":{
+      "original": "Link gốc",
+      "path": "Link dài",
+      "createdAt": "Tạo vào",
+      "deleteLink": "Xoá link",
+      "deleteLinkTitle": "Bạn có chắc rằng muốn xoá link?",
+      "deleteLinkConfirm": "Đúng, xoá nó",
+      "deleteLinkCancel": "Quay lại"
+    }
   }
 }

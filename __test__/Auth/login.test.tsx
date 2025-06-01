@@ -2,14 +2,6 @@ import { render, screen, waitFor, within, fireEvent } from '@testing-library/rea
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
-// Mock auth client
-const authClient = {
-  signIn: {
-    email: jest.fn(),
-    social: jest.fn(),
-  },
-};
-
 // Định nghĩa một mock router để sử dụng trong test
 const mockRouter = {
   push: jest.fn(),

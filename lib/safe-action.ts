@@ -21,5 +21,4 @@ export const actionClient = createSafeActionClient({
   const session = await auth.api.getSession({ headers: await headers() });
 
   return next({ ctx: session ?? undefined });
-  // return session ? next({ctx: session}) : next({ctx: undefined})
 });
