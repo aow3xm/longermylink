@@ -71,7 +71,7 @@
   "Profile":{
     "LinkTable":{
       "original": "Original",
-      "path": "Longed Link",
+      "path": "Long Link",
       "createdAt": "Created At",
       "deleteLink": "Delete Link",
       "deleteLinkTitle": "Are you sure you want to delete this link?",

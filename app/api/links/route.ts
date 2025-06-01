@@ -19,7 +19,7 @@ export const GET = async (req: NextRequest): Promise<NextResponse<GetLinksRespon
   const nextParam = req.nextUrl.searchParams.get('next');
   let nextCursor: number | null = null;
   if(nextParam !== null){
-    nextCursor = isNaN(Number(nextParam)) ? null : Number(nextParam) 
+    nextCursor = nextParam.trim() === '' || Number.isNaN(Number(nextParam)) ? null : Number(nextParam);
   }
   const session = await auth.api.getSession({ headers: await headers() });
 

@@ -20,7 +20,7 @@ export const ShowResult: React.FC<ShowResultProps> = ({ result }) => {
     <Dialog defaultOpen={true}>
       <DialogContent>
         <DialogHeader>
-            <DialogTitle>Your link are ready ✨</DialogTitle>
+            <DialogTitle>Your link is ready ✨</DialogTitle>
           <VisuallyHidden>
             <DialogDescription></DialogDescription>
           </VisuallyHidden>
