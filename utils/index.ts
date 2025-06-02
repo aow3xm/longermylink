@@ -6,7 +6,7 @@ export const generateRandomPath = (): string => {
   const randomNum = Math.floor(Math.random() * 1_000_000);
   const uniqueSeed = BigInt(timestamp) * BigInt(1_000_000) + BigInt(randomNum);
   const offset = Number(uniqueSeed % BigInt(MAX_OFFSET));
-  const actualLength = MAX_PATH_LENGTH - offset - timestamp.toString().length;
+  const actualLength = Math.max(0, MAX_PATH_LENGTH - offset - timestamp.toString().length);
   return 'o'.repeat(actualLength) + timestamp.toString();
 };
 
