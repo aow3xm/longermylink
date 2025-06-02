@@ -1,7 +1,6 @@
 'use client'
 
-import { GetLinksResponse } from '@/app/api/links/route';
-import { Link } from '@/types';
+import { GetLinksResponse, Link } from '@/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import ky from 'ky';
 export const useInfiniteLinks = () => {

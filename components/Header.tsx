@@ -22,7 +22,8 @@ export const Header: React.FC = () => {
     <header className='sticky w-full border-b h-14 border-border'>
       <div className='flex items-center justify-between max-w-5xl mx-auto overflow-hidden border-x'>
         <Button variant='ghost' asChild className='rounded-none flex items-center justify-center sm:border-r w-[10.5rem] h-14'>
-            <Link href={paths.home}>Longmylink</Link>
+            <Link href={paths.home}>
+            <span className='font-bold'>LONGMYLINK</span></Link>
         </Button>
 
         <nav className='flex'>
@@ -32,7 +33,7 @@ export const Header: React.FC = () => {
             <Button
               asChild
               variant='ghost'
-              className='rounded-none h-14 w-28 border-l'
+              className='border-l rounded-none h-14 w-28'
             >
               <Link href={paths.auth.login}>{t('login')}</Link>
             </Button>
@@ -61,7 +62,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
        <div className='flex items-center justify-center border-l size-14'>
          <Avatar className='rounded-full'>
           <AvatarImage src={user.image ?? ''} />
-          <AvatarFallback>{user.name.charAt(0).toLocaleUpperCase()}</AvatarFallback>
+          <AvatarFallback>{user.image}</AvatarFallback>
         </Avatar>
        </div>
       </PopoverTrigger>

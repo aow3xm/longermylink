@@ -4,20 +4,25 @@ import { GenerateLinkData, generateLinkSchema } from '@/lib/schema/personal';
 import { valibotResolver } from '@hookform/resolvers/valibot';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { SubmitButton } from '../SubmitButton';
+import { Input } from '../ui/input';
+import { ValidationErrorMsg } from '../ValidationMessage';
+import { useTranslations } from 'next-intl';
 import { ShowResult } from './ShowResult';
-import { SubmitButton } from './SubmitButton';
-import { Input } from './ui/input';
-import { ValidationErrorMsg } from './ValidationMessage';
-
 export const Hero: React.FC = () => {
+  const t = useTranslations('HomePage.Hero')
   return (
     <div className='relative max-w-5xl h-[calc(100vh-3.5rem)] mx-auto border-x overflow-hidden antialiased flex flex-col items-center justify-center px-2'>
       <GridBackground />
 
       <div className='relative z-10 w-full p-4 pt-20 mx-auto max-w-7xl md:pt-0'>
-        <h1 className='text-4xl font-bold text-center text-black dark:text-transparent dark:bg-opacity-50 dark:bg-gradient-to-b dark:from-neutral-50 dark:to-neutral-400 bg-clip-text md:text-7xl'>
-          Short links are
-          <br /> overrated <br /> Go long!
+        <h1 className='block max-w-3xl mx-auto text-3xl font-bold text-center text-black md:text-5xl dark:text-white lg:text-6xl xl:text-7xl'>
+          {/* Short links are
+          <br /> overrated <br /> Go long! */}
+          {t.rich('heading', {
+            br: () => <br />,
+            del: (chunks) => <span className="text-white line-through">{chunks}</span>
+          })}
         </h1>
       </div>
 
@@ -63,6 +68,7 @@ const GridBackground: React.FC = () => (
 //========================================================/
 const PREFIX = ['https://', 'http://'];
 const GenerateLinkForm: React.FC = () => {
+  const t = useTranslations('HomePage.Hero')
   const method = useForm<GenerateLinkData>({ resolver: valibotResolver(generateLinkSchema) });
   const [result, setResult] = useState<string | null>();
   const {
@@ -102,13 +108,13 @@ const GenerateLinkForm: React.FC = () => {
       >
         <Input
           {...register('original')}
-          placeholder='Paste your link here'
+          placeholder={t('linkPlaceholder')}
           required
         />
         {errors.original?.message && <ValidationErrorMsg msg={errors.original.message} />}
 
         {result && <ShowResult result={result} />}
-        <SubmitButton className='w-full'>Make it long</SubmitButton>
+        <SubmitButton className='w-full'>{t('submit')}</SubmitButton>
       </form>
     </FormProvider>
   );

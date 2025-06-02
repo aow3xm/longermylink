@@ -1,34 +1,22 @@
-const MAX_PATH_LENGTH = 500;
+const MAX_PATH_LENGTH = 4000;
+const MAX_OFFSET = 50;
 
 export const generateRandomPath = (): string => {
   const timestamp = Date.now();
-  const randomNum = Math.floor(Math.random() * 1000000);
-
-  const uniqueSeed = timestamp + randomNum;
-  const uniquePattern = uniqueSeed
-    .toString()
-    .split('')
-    .map((digit, index) => {
-      const char = parseInt(digit) % 2 === 0 ? 'o' : 'O';
-      const repeat = index % 2 === 0 ? 1 : 2;
-      return char.repeat(repeat);
-    })
-    .join('');
-
-  const patternBase = 'o';
-  let pattern = 'l';
-
-  while (true) {
-    const testPattern = pattern + patternBase;
-    const testPath = testPattern + uniquePattern + patternBase.repeat(50) + 'ng';
-
-    if (testPath.length > MAX_PATH_LENGTH - 50) break;
-
-    pattern = testPattern;
-  }
-
-  const finalPath = pattern + uniquePattern + patternBase.repeat(25) + timestamp + patternBase.repeat(25) + 'ng';
-
-  return finalPath;
+  const randomNum = Math.floor(Math.random() * 1_000_000);
+  const uniqueSeed = BigInt(timestamp) * BigInt(1_000_000) + BigInt(randomNum);
+  const offset = Number(uniqueSeed % BigInt(MAX_OFFSET));
+  const actualLength = Math.max(0, MAX_PATH_LENGTH - offset - timestamp.toString().length);
+  return 'o'.repeat(actualLength) + timestamp.toString();
 };
 
+export const capitalizeName = (name?: string) => {
+  if (!name) return '';
+  const words = name.trim().split(' ');
+  if (words.length <= 1) return words[0].charAt(0).toUpperCase();
+
+  const first = words[0].charAt(0);
+  const last = words[words.length - 1].charAt(0);
+
+  return (first + last).toUpperCase();
+};

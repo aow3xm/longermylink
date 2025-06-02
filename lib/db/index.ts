@@ -12,7 +12,7 @@ try {
     connectionString: process.env.DATABASE_URL,
   });
 } catch (error) {
-  console.log(error);
+  console.error(error);
 }
 
 if (!pool) {
