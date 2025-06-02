@@ -1,7 +1,24 @@
 {
   "HomePage": {
-    "title": "Hello world!",
-    "about": "Go to the about page"
+    "Hero":{
+      "heading": " <del>Rút gọn link</del><br></br>Làm link của bạn<br></br>dàiiiiiiiiiiiiiiiiiiiiiii hơn",
+      "linkPlaceholder": "Dán link vào đây",
+      "submit": "Đi thôi"
+    },
+    "AvatarSelect": {
+      "title": "Chọn avatar cho bạn",
+      "skip": "Không, cho tôi vào",
+      "select": "Chọn avatar này",
+      "toast": "Avatar đã được cập nhật"
+    },
+    "ShowResult":{
+      "title": "Link của bạn đã sẵn sàng ✨",
+      "signUp": "Đăng ký để lưu link "
+    },
+    "Metadata": {
+      "title": "Long My Link",
+      "description": "Biến link của bạn dàiiiiiiiiiiiiiiiiiiiiii hơn bao giờ hết, thử ngay!"
+    }
   },
   "NotFound": {
     "title": "Nơi này không tồn tại",
@@ -27,7 +44,11 @@
       "noAccount": "Chưa có tài khoản?",
       "signUp": "Đăng ký",
       "or": "hoặc",
-      "signInWithGithub": "Đăng nhập với Github"
+      "signInWithGithub": "Đăng nhập với Github",
+      "Metadata": {
+        "title": "Đăng nhập",
+        "description": "Đăng nhập để sử dụng đầy đủ tính năng của longmylink"
+      }
     },
     "Register": {
       "title": "Đăng ký",
@@ -44,7 +65,11 @@
       "hasAccount": "Đã có tài khoản?",
       "signIn": "Đăng nhập",
       "or": "hoặc",
-      "signUpWithGithub": "Đăng ký với Github"
+      "signUpWithGithub": "Đăng ký với Github",
+      "Metadata": {
+        "title": "Đăng ký",
+        "description": "Đăng ký để sử dụng đầy đủ tính năng của longmylink"
+      }
     },
     "ForgotPassword": {
       "title": "Quên mật khẩu",
@@ -54,7 +79,11 @@
       "resetPasswordButton": "Đặt lại mật khẩu",
       "rememberPassword": "Bạn đã nhớ mật khẩu?",
       "login": "Đăng nhập",
-      "toast": "Chúng tôi vừa gửi một link đặt lại mật khẩu đến email của bạn, vui lòng kiểm tra email/thư mục spam"
+      "toast": "Chúng tôi vừa gửi một link đặt lại mật khẩu đến email của bạn, vui lòng kiểm tra email/thư mục spam",
+      "Metadata": {
+        "title": "Quên mật khẩu",
+        "description": "Quên mật khẩu? Nhập email để tiến hành đặt lại mật khẩu"
+      }
     },
     "ResetPassword": {
       "invalidToken": "Token đặt lại mật khẩu không hợp lệ",
@@ -65,11 +94,15 @@
       "confirmPasswordLabel": "Xác nhận mật khẩu",
       "confirmPasswordPlaceholder": "Nhập lại mật khẩu mới",
       "resetPasswordButton": "Đặt lại mật khẩu",
-      "toast": "Đặt lại mật khẩu thành công"
+      "toast": "Đặt lại mật khẩu thành công",
+      "Metadata": {
+        "title": "Đặt lại mật khẩu",
+        "description": "Nhập mã OTP chúng tôi đã gửi đến email của bạn để tiến hành đặt lại mật khẩu"
+      }
     }
   },
-  "Profile":{
-    "LinkTable":{
+  "Profile": {
+    "LinkTable": {
       "original": "Link gốc",
       "path": "Link dài",
       "createdAt": "Tạo vào",

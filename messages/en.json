@@ -1,18 +1,35 @@
 {
   "HomePage": {
-    "title": "Hello world!",
-    "about": "Go to the about page"
+    "Hero":{
+      "heading": "Short links are<br></br>overrated<br></br>Go long",
+      "linkPlaceholder": "Paste your link here",
+      "submit": "Make it longer"
+    },
+    "AvatarSelect": {
+      "title": "Select your avatar",
+      "skip": "No, let me in",
+      "select": "Select this avatar",
+      "toast": "Avatar updated successfully"
+    },
+    "ShowResult":{
+      "title": "Your link is ready ✨",
+      "signUp": "Sign up to save your link "
+    },
+    "Metadata": {
+      "title": "Long My Link",
+      "description": "Make your link longer than ever, sound good? Give it a try!"
+    }
   },
-  "NotFound":{
+  "NotFound": {
     "title": "You should not be here",
     "back": "Back to home"
   },
-  "Header":{
-    "Popover":{
+  "Header": {
+    "Popover": {
       "profile": "Profile",
       "logout": "Logout"
     },
-    "login": "Login"
+    "login": "Sign in"
   },
   "Auth": {
     "Login": {
@@ -27,7 +44,11 @@
       "noAccount": "Don't have an account?",
       "signUp": "Sign up",
       "or": "or",
-      "signInWithGithub": "Sign in with Github"
+      "signInWithGithub": "Sign in with Github",
+      "Metadata": {
+        "title": "Sign in",
+        "description": "Sign in to your account to access our holeesheet features"
+      }
     },
     "Register": {
       "title": "Sign Up",
@@ -44,19 +65,27 @@
       "hasAccount": "Already have an account?",
       "signIn": "Sign In",
       "or": "or",
-      "signUpWithGithub": "Sign Up with Github"
+      "signUpWithGithub": "Sign Up with Github",
+      "Metadata": {
+        "title": "Sign up",
+        "description": "Sign up to your account to access our holeesheet features"
+      }
     },
-    "ForgotPassword":{
+    "ForgotPassword": {
       "title": "Forgot Password",
       "description": "Enter your email address to reset your password",
       "emailLabel": "Email",
       "emailPlaceholder": "Enter your email",
       "resetPasswordButton": "Reset Password",
       "rememberPassword": "Remember your password?",
-      "login": "Login",
-      "toast": "We just sent a password reset link to your email, please check your inbox/junk email"
+      "login": "Sign in",
+      "toast": "We just sent a password reset link to your email, please check your inbox/junk email",
+      "Metadata": {
+        "title": "Forgot password",
+        "description": "Can’t remember your password? Enter your email below and we’ll send you a reset link instantly"
+      }
     },
-    "ResetPassword":{
+    "ResetPassword": {
       "invalidToken": "Invalid reset password token",
       "title": "Reset Password",
       "description": "Enter a new password for your account",
@@ -65,11 +94,15 @@
       "confirmPasswordLabel": "Confirm Password",
       "confirmPasswordPlaceholder": "Re-enter your new password",
       "resetPasswordButton": "Reset Password",
-      "toast": "Password reset successful"
+      "toast": "Password reset successful",
+      "Metadata": {
+        "title": "Reset password",
+        "description": "Enter the OTP code we sent to your email to reset your password"
+      }
     }
   },
-  "Profile":{
-    "LinkTable":{
+  "Profile": {
+    "LinkTable": {
       "original": "Original",
       "path": "Long Link",
       "createdAt": "Created At",
