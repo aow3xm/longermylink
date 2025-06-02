@@ -13,7 +13,7 @@ export const generateRandomPath = (): string => {
 export const capitalizeName = (name?: string) => {
   if (!name) return '';
   const words = name.trim().split(' ');
-  if (words.length <= 1) return name.charAt(0).toUpperCase();
+  if (words.length <= 1) return words[0].charAt(0).toUpperCase();
 
   const first = words[0].charAt(0);
   const last = words[words.length - 1].charAt(0);
