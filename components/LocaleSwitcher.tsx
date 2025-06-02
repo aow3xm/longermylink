@@ -24,13 +24,14 @@ export const LocaleSwitcher: React.FC<ButtonProps> = ({ ...props }) => {
       <DropdownMenuTrigger asChild>
         <Button
           variant='ghost'
+          aria-label='Locale switcher'
           {...props}
         >
           <Languages />
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className='rounded-none -mt-1 ml-14 shadow-none p-0 w-28 border-t-0 border-r-0 bg-background'>
+      <DropdownMenuContent className='p-0 -mt-1 border-t-0 border-r-0 rounded-none shadow-none ml-14 w-28 bg-background'>
         <DropdownMenuGroup>
           {locales.map(l => (
             <DropdownMenuItem
@@ -38,7 +39,7 @@ export const LocaleSwitcher: React.FC<ButtonProps> = ({ ...props }) => {
               key={l.code}
               className='rounded-none h-14 not-last:border-b'
             >
-              <p className='flex gap-2 justify-center size-full items-center'>
+              <p className='flex items-center justify-center gap-2 size-full'>
                 <span>{l.flag}</span>
                 {l.label}
               </p>

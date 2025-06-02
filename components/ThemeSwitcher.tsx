@@ -13,6 +13,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className, ...prop
       {...props}
       className={className}
       variant='ghost'
+      aria-label='Theme switcher'
       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
     >
       {theme === 'light' ? <MoonIcon /> : <SunIcon />}
