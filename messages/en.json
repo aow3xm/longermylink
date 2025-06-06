@@ -109,7 +109,8 @@
       "deleteLink": "Delete Link",
       "deleteLinkTitle": "Are you sure you want to delete this link?",
       "deleteLinkConfirm": "Yes, delete this link",
-      "deleteLinkCancel": "Cancel"
+      "deleteLinkCancel": "Cancel",
+      "copyToast": "{item} has been copied to clipboard"
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "HomePage": {
-    "Hero":{
+    "Hero": {
       "heading": " <del>Rút gọn link</del><br></br>Làm link của bạn<br></br>dàiiiiiiiiiiiiiiiiiiiiiii hơn",
       "linkPlaceholder": "Dán link vào đây",
       "submit": "Đi thôi"
@@ -11,7 +11,7 @@
       "select": "Chọn avatar này",
       "toast": "Avatar đã được cập nhật"
     },
-    "ShowResult":{
+    "ShowResult": {
       "title": "Link của bạn đã sẵn sàng ✨",
       "signUp": "Đăng ký để lưu link "
     },
@@ -109,7 +109,8 @@
       "deleteLink": "Xoá link",
       "deleteLinkTitle": "Bạn có chắc rằng muốn xoá link?",
       "deleteLinkConfirm": "Đúng, xoá nó",
-      "deleteLinkCancel": "Quay lại"
+      "deleteLinkCancel": "Quay lại",
+      "copyToast": "Đã sao chép {item} vào clipboard"
     }
   }
 }
