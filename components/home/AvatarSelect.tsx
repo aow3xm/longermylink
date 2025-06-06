@@ -87,7 +87,7 @@ export const AvatarSelect = () => {
                 className={cn(avatarClassName, selectedAvatar === avatar.src && 'ring-2')}
                 onClick={() => handleSelectAvatar(avatar.src)}
               >
-                <AvatarImage src={avatar.src} />
+                <AvatarImage src={avatar.src} className='scale-120'/>
               </Avatar>
             ))}
           </div>
