@@ -1,11 +1,14 @@
-import { InferInput, nonEmpty, number, object, pipe, string, trim } from 'valibot';
+import { InferInput, nonEmpty, number, object, pipe, regex, string, trim } from 'valibot';
 
+const urlRegex = new RegExp(
+  '\\b(?:https?://)?(?:www\\.)?[\\w-]+(\\.[\\w-]+)+(/[\\w-./?%&=]*)?\\b'
+);
 export const updateAvatarSchema = object({
     link: pipe(string(), trim())
 })
 
 export const generateLinkSchema = object({
-    original: pipe(string(), trim(), nonEmpty()),
+    original: pipe(string(), trim(), nonEmpty(), regex(urlRegex, 'Invalid URL')),
 })
 
 export const deleteLinkSchema = object({
