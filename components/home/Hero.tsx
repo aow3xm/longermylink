@@ -1,27 +1,18 @@
 'use client';
 
-import { GenerateLinkData, generateLinkSchema } from '@/lib/schema/personal';
-import { valibotResolver } from '@hookform/resolvers/valibot';
-import { useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
-import { SubmitButton } from '../SubmitButton';
-import { Input } from '../ui/input';
-import { ValidationErrorMsg } from '../ValidationMessage';
 import { useTranslations } from 'next-intl';
-import { ShowResult } from './ShowResult';
+import { GenerateLinkForm } from './GenerateLinkForm';
 export const Hero: React.FC = () => {
-  const t = useTranslations('HomePage.Hero')
+  const t = useTranslations('HomePage.Hero');
   return (
     <div className='relative max-w-5xl h-[calc(100vh-3.5rem)] mx-auto border-x overflow-hidden antialiased flex flex-col items-center justify-center px-2'>
       <GridBackground />
 
       <div className='relative z-10 w-full p-4 pt-20 mx-auto max-w-7xl md:pt-0'>
-        <h1 className='block max-w-3xl mx-auto text-3xl font-bold text-center text-black md:text-5xl dark:text-white lg:text-6xl xl:text-7xl'>
-          {/* Short links are
-          <br /> overrated <br /> Go long! */}
+        <h1 className='max-w-3xl mx-auto text-3xl font-bold text-center text-black md:text-5xl lg:text-6xl xl:text-7xl dark:text-transparent dark:bg-red-400 dark:bg-clip-text dark:bg-linear-to-br dark:from-[#747474] dark:to-[#ffffff]'>
           {t.rich('heading', {
             br: () => <br />,
-            del: (chunks) => <span className="text-white line-through">{chunks}</span>
+            del: chunks => <span className='dark:decoration-background text-black line-through dark:text-transparent dark:bg-clip-text dark:bg-linear-to-br dark:from-[#747474] dark:to-[#ffffff]'>{chunks}</span>
           })}
         </h1>
       </div>
@@ -64,58 +55,3 @@ const GridBackground: React.FC = () => (
     </svg>
   </div>
 );
-
-//========================================================/
-const PREFIX = ['https://', 'http://'];
-const GenerateLinkForm: React.FC = () => {
-  const t = useTranslations('HomePage.Hero')
-  const method = useForm<GenerateLinkData>({ resolver: valibotResolver(generateLinkSchema) });
-  const [result, setResult] = useState<string | null>();
-  const {
-    register,
-    reset,
-    handleSubmit,
-    formState: { errors },
-  } = method;
-
-  const handleGenerateLink = handleSubmit(async data => {
-    setResult(null);
-
-    const isStartWithPrefix = PREFIX.some(prefix => data.original.startsWith(prefix));
-    if (!isStartWithPrefix) {
-      data.original = `${PREFIX[0]}${data.original}`;
-    }
-
-    const { generateLink } = await import('@/actions/link');
-    const { toast } = await import('sonner');
-
-    const response = await generateLink(data);
-    if (response?.serverError) {
-      toast.error(response.serverError);
-      return;
-    }
-    if (response?.data) {
-      setResult(`${process.env.NEXT_PUBLIC_BASE_URL}/l/${response.data.path}`);
-      reset();
-    }
-  });
-
-  return (
-    <FormProvider {...method}>
-      <form
-        onSubmit={handleGenerateLink}
-        className='z-50 space-y-2 w-xs sm:w-sm'
-      >
-        <Input
-          {...register('original')}
-          placeholder={t('linkPlaceholder')}
-          required
-        />
-        {errors.original?.message && <ValidationErrorMsg msg={errors.original.message} />}
-
-        {result && <ShowResult result={result} />}
-        <SubmitButton className='w-full'>{t('submit')}</SubmitButton>
-      </form>
-    </FormProvider>
-  );
-};

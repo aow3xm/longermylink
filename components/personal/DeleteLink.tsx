@@ -36,7 +36,7 @@ export const DeleteLink: React.FC<DeleteLinkProps> = ({ id }) => {
         <DropdownMenuItem
           onSelect={e => e.preventDefault()}
           variant='destructive'
-          className='rounded-none h-7'
+          className='rounded-none h-9'
         >
           Delete link
         </DropdownMenuItem>
