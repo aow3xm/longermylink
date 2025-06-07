@@ -9,7 +9,10 @@ import { useLinkColumns } from './link-columns';
 export const LinksTable: React.FC = () => {
   const { result, isFetching, isError, fetchNextPage } = useInfiniteLinks();
   const columns = useLinkColumns();
-  const { ref, inView } = useInView();
+  const { ref, inView } = useInView({
+    threshold: 0,
+    rootMargin: '50px'
+  });
 
   useEffect(() => {
     if (inView && !isFetching) {
@@ -26,7 +29,7 @@ export const LinksTable: React.FC = () => {
           />
           <div
             ref={ref}
-            className='h-10 sr-only'
+            className='h-[1px]'
           />
           {isFetching && <LoadingSkeleton />}
           {isError && <p>Error fetching links</p>}

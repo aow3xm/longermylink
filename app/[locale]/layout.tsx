@@ -40,7 +40,7 @@ const RootLayout: React.FC<RootLayoutProps> = async ({ params, children }) => {
         <ProviderWrapper>
           <Header/>
           <main>
-            <Toaster position='top-right'/>
+            <Toaster position='top-right' toastOptions={{classNames: {default: 'bg-background! rounded-xs!'}}}/>
             {children}
           </main>
           <Footer/>
